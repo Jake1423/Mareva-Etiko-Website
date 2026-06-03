@@ -1,0 +1,2388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ESG × AI Readiness Diagnostic | Mareva Etiko</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+ :root {
+   /* Mareva Etiko brand palette extracted from logo */
+   --me-teal:    #1a9fa8;
+   --me-blue:    #1e6fb5;
+   --me-orange:  #e8703a;
+   --me-red:     #d63c2f;
+   --me-amber:   #f0a630;
+ 
+   --ink:        #0f1117;
+   --ink-soft:   #3a3d4a;
+   --ink-muted:  #7a7f92;
+   --bg:         #f5f7f8;
+   --bg-card:    #ffffff;
+ 
+   --accent:       #126e75;
+   --accent-mid:   #1a9fa8;
+   --accent-light: #2fc0cb;
+   --accent-pale:  #e4f6f7;
+   --accent-pale2: #c2ecee;
+ 
+   --warm:         #d4611a;
+   --warm-mid:     #e8703a;
+   --warm-pale:    #fdf0e8;
+   --warm-pale2:   #f9d4bc;
+ 
+   --gold:      #d48a0c;
+   --gold-pale: #fdf6dc;
+   --red:       #d63c2f;
+   --red-pale:  #fdf0ee;
+ 
+   --border:      #e0e4e8;
+   --border-soft: #eaecef;
+   --radius:    12px;
+   --radius-sm: 8px;
+   --shadow:    0 2px 16px rgba(15,17,23,0.07);
+   --shadow-lg: 0 8px 40px rgba(15,17,23,0.12);
+ 
+   --grad: linear-gradient(135deg, #1e6fb5 0%, #1a9fa8 45%, #f0a630 100%);
+   --grad-warm: linear-gradient(135deg, #f0a630 0%, #e8703a 60%, #d63c2f 100%);
+ }
+ 
+ *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+ body {
+   font-family: 'DM Sans', sans-serif;
+   background: var(--bg);
+   color: var(--ink);
+   min-height: 100vh;
+   line-height: 1.6;
+   -webkit-font-smoothing: antialiased;
+ }
+ 
+ /* ─── NAV ─── */
+ nav {
+   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+   background: rgba(247,246,242,0.92);
+   backdrop-filter: blur(12px);
+   border-bottom: 1px solid var(--border);
+   padding: 0 32px;
+   height: 60px;
+   display: flex; align-items: center; justify-content: space-between;
+ }
+ .nav-logo-wrap {
+   display: flex; align-items: center; gap: 10px;
+ }
+ .nav-logo {
+   font-family: 'Instrument Serif', serif;
+   font-size: 18px;
+   color: var(--accent);
+   letter-spacing: 0.01em;
+ }
+ .nav-badge {
+   font-size: 12px;
+   font-weight: 500;
+   color: var(--ink-muted);
+   background: var(--bg);
+   border: 1px solid var(--border);
+   padding: 4px 12px;
+   border-radius: 20px;
+ }
+ 
+ /* ─── SCREENS ─── */
+ .screen { display: none; min-height: 100vh; padding-top: 60px; }
+ .screen.active { display: flex; flex-direction: column; }
+ 
+ /* ─── LANDING ─── */
+ #screen-landing {
+   align-items: center; justify-content: center;
+   padding: 80px 24px 60px;
+ }
+ .landing-inner {
+   max-width: 640px; width: 100%; text-align: center;
+ }
+ .landing-logo-mark {
+   display: flex; justify-content: center; margin-bottom: 20px;
+ }
+ .landing-logo-mark svg {
+   filter: drop-shadow(0 4px 12px rgba(26,159,168,0.25));
+ }
+ .landing-eyebrow {
+   display: inline-flex; align-items: center; gap: 8px;
+   font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+   text-transform: uppercase; color: var(--accent-light);
+   background: var(--accent-pale); border: 1px solid var(--accent-pale2);
+   padding: 6px 16px; border-radius: 20px; margin-bottom: 28px;
+ }
+ .landing-title {
+   font-family: 'Instrument Serif', serif;
+   font-size: clamp(40px, 7vw, 64px);
+   line-height: 1.1;
+   color: var(--ink);
+   margin-bottom: 20px;
+ }
+ .landing-title em { font-style: italic; color: var(--accent-mid); background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+ .landing-subtitle {
+   font-size: 17px;
+   color: var(--ink-soft);
+   max-width: 520px;
+   margin: 0 auto 40px;
+   line-height: 1.65;
+ }
+ .landing-stats {
+   display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;
+   margin-bottom: 44px;
+ }
+ .stat {
+   display: flex; flex-direction: column; align-items: center; gap: 4px;
+ }
+ .stat-num {
+   font-family: 'Instrument Serif', serif;
+   font-size: 28px; color: var(--accent-mid);
+ }
+ .stat-label { font-size: 12px; color: var(--ink-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; }
+ .stat-divider { width: 1px; height: 40px; background: var(--border); align-self: center; }
+ 
+ .btn-primary {
+   display: inline-flex; align-items: center; gap: 10px;
+   background: var(--grad);
+   color: #fff;
+   font-family: 'DM Sans', sans-serif;
+   font-size: 15px; font-weight: 600;
+   padding: 16px 36px; border-radius: 50px;
+   border: none; cursor: pointer;
+   transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+   box-shadow: 0 4px 20px rgba(26,111,181,0.3);
+   text-decoration: none;
+ }
+ .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); box-shadow: 0 6px 28px rgba(26,111,181,0.38); }
+ .btn-primary svg { transition: transform 0.2s; }
+ .btn-primary:hover svg { transform: translateX(3px); }
+ 
+ .landing-research {
+   margin-top: 48px;
+   padding: 20px 24px;
+   background: var(--bg-card);
+   border: 1px solid var(--border);
+   border-radius: var(--radius);
+   text-align: left;
+ }
+ .landing-research-label {
+   font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+   text-transform: uppercase; color: var(--ink-muted); margin-bottom: 10px;
+ }
+ .source-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+ .source-pill {
+   font-size: 11px; font-weight: 500;
+   background: var(--bg); border: 1px solid var(--border);
+   color: var(--ink-soft);
+   padding: 4px 10px; border-radius: 20px;
+ }
+ 
+ /* ─── QUIZ ─── */
+ #screen-quiz {
+   align-items: center; justify-content: center;
+   padding: 80px 24px 60px;
+ }
+ .quiz-shell {
+   max-width: 680px; width: 100%;
+ }
+ .quiz-progress-bar-wrap {
+   margin-bottom: 32px;
+ }
+ .quiz-progress-meta {
+   display: flex; justify-content: space-between; align-items: center;
+   margin-bottom: 10px;
+ }
+ .quiz-progress-label {
+   font-size: 13px; font-weight: 600; color: var(--ink-muted);
+   text-transform: uppercase; letter-spacing: 0.07em;
+ }
+ .quiz-progress-count {
+   font-family: 'Instrument Serif', serif;
+   font-size: 22px; color: var(--accent);
+ }
+ .progress-track {
+   height: 4px; background: var(--border); border-radius: 2px; overflow: hidden;
+ }
+ .progress-fill {
+   height: 100%; background: var(--grad); border-radius: 2px;
+   transition: width 0.4s ease;
+ }
+ 
+ .quiz-card {
+   background: var(--bg-card);
+   border: 1px solid var(--border);
+   border-radius: 18px;
+   padding: 40px;
+   box-shadow: var(--shadow);
+   animation: fadeUp 0.35s ease both;
+ }
+ @keyframes fadeUp {
+   from { opacity: 0; transform: translateY(14px); }
+   to   { opacity: 1; transform: translateY(0); }
+ }
+ 
+ .q-dimension {
+   display: inline-flex; align-items: center; gap: 6px;
+   font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+   text-transform: uppercase; color: var(--accent);
+   background: var(--accent-pale); padding: 4px 12px; border-radius: 20px;
+   margin-bottom: 20px;
+ }
+ .q-text {
+   font-family: 'Instrument Serif', serif;
+   font-size: 22px; line-height: 1.35; color: var(--ink);
+   margin-bottom: 8px;
+ }
+ .q-subtext {
+   font-size: 14px; color: var(--ink-muted); margin-bottom: 28px; line-height: 1.55;
+ }
+ .q-research-cite {
+   display: flex; align-items: flex-start; gap: 7px;
+   font-size: 11.5px; color: var(--ink-muted); line-height: 1.55;
+   background: var(--bg); border: 1px solid var(--border-soft);
+   border-radius: var(--radius-sm); padding: 10px 14px;
+   margin-bottom: 24px;
+ }
+ .q-research-cite svg { flex-shrink: 0; margin-top: 1px; color: var(--accent-mid); }
+ 
+ .options-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+ .option-btn {
+   display: flex; align-items: flex-start; gap: 14px;
+   background: var(--bg); border: 1.5px solid var(--border);
+   border-radius: var(--radius); padding: 16px 18px;
+   cursor: pointer; text-align: left;
+   transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+   font-family: 'DM Sans', sans-serif;
+ }
+ .option-btn:hover { border-color: var(--accent-mid); background: var(--accent-pale); }
+ .option-btn.selected {
+   border-color: var(--accent-mid); background: var(--accent-pale);
+   box-shadow: 0 0 0 3px rgba(26,159,168,0.14);
+ }
+ .option-score {
+   flex-shrink: 0;
+   width: 28px; height: 28px; border-radius: 50%;
+   background: var(--bg-card); border: 1.5px solid var(--border);
+   display: flex; align-items: center; justify-content: center;
+   font-size: 12px; font-weight: 700; color: var(--ink-muted);
+   transition: background 0.15s, border-color 0.15s, color 0.15s;
+   margin-top: 1px;
+ }
+ .option-btn.selected .option-score {
+   background: var(--grad); border-color: var(--accent-mid); color: #fff;
+ }
+ .option-text { font-size: 14px; color: var(--ink-soft); line-height: 1.5; }
+ .option-text strong { color: var(--ink); font-weight: 600; display: block; margin-bottom: 2px; }
+ 
+ 
+ 
+ .dim-transition {
+   display: none;
+   align-items: center; gap: 10px;
+   background: var(--accent-pale); border: 1px solid var(--accent-pale2);
+   border-radius: var(--radius-sm); padding: 10px 14px;
+   margin-bottom: 20px; font-size: 13px; color: var(--accent); font-weight: 500;
+ }
+ .dim-transition.visible { display: flex; }
+ .dim-transition-dot {
+   width: 8px; height: 8px; border-radius: 50%; background: var(--accent-light); flex-shrink: 0;
+ }
+ 
+ .quiz-nav { display: flex; justify-content: space-between; align-items: center; }
+ .btn-back {
+   display: flex; align-items: center; gap: 6px;
+   background: transparent; border: 1.5px solid var(--border);
+   border-radius: 50px; padding: 12px 24px;
+   font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500;
+   color: var(--ink-soft); cursor: pointer;
+   transition: border-color 0.15s, color 0.15s;
+ }
+ .btn-back:hover { border-color: var(--ink-soft); color: var(--ink); }
+ .btn-next {
+   display: flex; align-items: center; gap: 8px;
+   background: var(--grad); color: #fff;
+   border: none; border-radius: 50px; padding: 14px 32px;
+   font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
+   cursor: pointer; opacity: 0.4; pointer-events: none;
+   transition: opacity 0.2s, background 0.2s, transform 0.15s;
+ }
+ .btn-next.ready { opacity: 1; pointer-events: all; }
+ .btn-next.ready:hover { opacity: 0.88; transform: translateY(-1px); }
+ 
+ /* ─── GATE ─── */
+ #screen-gate {
+   align-items: center; justify-content: center;
+   padding: 80px 24px 60px;
+ }
+ .gate-card {
+   max-width: 520px; width: 100%;
+   background: var(--bg-card); border: 1px solid var(--border);
+   border-radius: 18px; padding: 44px 40px;
+   box-shadow: var(--shadow);
+   animation: fadeUp 0.35s ease both;
+ }
+ .gate-eyebrow {
+   font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+   text-transform: uppercase; color: var(--accent);
+   margin-bottom: 14px;
+ }
+ .gate-title {
+   font-family: 'Instrument Serif', serif;
+   font-size: 28px; color: var(--ink); margin-bottom: 8px;
+ }
+ .gate-subtitle { font-size: 14px; color: var(--ink-muted); margin-bottom: 28px; line-height: 1.55; }
+ 
+ .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+ .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+ .form-group label { font-size: 13px; font-weight: 600; color: var(--ink-soft); }
+ .form-group input, .form-group select {
+   background: var(--bg); border: 1.5px solid var(--border);
+   border-radius: var(--radius-sm); padding: 12px 14px;
+   font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--ink);
+   transition: border-color 0.15s;
+   -webkit-appearance: none;
+ }
+ .form-group input:focus, .form-group select:focus {
+   outline: none; border-color: var(--accent-mid);
+ }
+ .form-consent {
+   font-size: 12px; color: var(--ink-muted); line-height: 1.6;
+   margin-bottom: 20px;
+ }
+ .form-consent a { color: var(--accent-light); text-decoration: none; }
+ .form-error {
+   font-size: 13px; color: var(--red);
+   background: var(--red-pale); border: 1px solid #f5c6c0;
+   padding: 10px 14px; border-radius: var(--radius-sm);
+   margin-bottom: 14px; display: none;
+ }
+ .form-error.visible { display: block; }
+ 
+ /* ─── RESULTS ─── */
+ #screen-results { align-items: center; padding: 80px 16px 80px; }
+ .results-inner { max-width: 1100px; width: 100%; }
+ 
+ .results-header { text-align: center; margin-bottom: 44px; animation: fadeUp 0.4s ease both; }
+ .results-eyebrow {
+   font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+   text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
+ }
+ .results-name {
+   font-family: 'Instrument Serif', serif;
+   font-size: clamp(26px, 5vw, 38px); color: var(--ink); margin-bottom: 4px;
+ }
+ .results-org { font-size: 15px; color: var(--ink-muted); margin-bottom: 28px; }
+ 
+ /* Score hero: ring + radar side by side */
+ .score-hero {
+   display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+   background: var(--bg-card); border: 1px solid var(--border);
+   border-radius: 18px; overflow: hidden; box-shadow: var(--shadow);
+   margin-bottom: 4px;
+ }
+ @media (max-width: 600px) { .score-hero { grid-template-columns: 1fr; } .form-row { grid-template-columns: 1fr; } }
+ .score-hero-left {
+   display: flex; flex-direction: column; align-items: center; justify-content: center;
+   padding: 36px 24px; border-right: 1px solid var(--border);
+ }
+ .score-ring { position: relative; width: 160px; height: 160px; margin-bottom: 16px; }
+ .score-ring svg { transform: rotate(-90deg); }
+ .score-ring-track { fill: none; stroke: var(--border); stroke-width: 10; }
+ .score-ring-fill {
+   fill: none; stroke-width: 10; stroke-linecap: round;
+   stroke-dasharray: 408; stroke-dashoffset: 408;
+   transition: stroke-dashoffset 1.2s cubic-bezier(0.4,0,0.2,1);
+ }
+ .score-ring-center {
+   position: absolute; inset: 0;
+   display: flex; flex-direction: column; align-items: center; justify-content: center;
+ }
+ .score-num {
+   font-family: 'Instrument Serif', serif; font-size: 44px; line-height: 1; color: var(--accent-mid);
+ }
+ .score-denom { font-size: 13px; color: var(--ink-muted); font-weight: 500; }
+ .score-level-badge {
+   font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
+   text-transform: uppercase; padding: 5px 16px; border-radius: 20px; margin-bottom: 8px;
+ }
+ .score-level-desc { font-size: 13px; color: var(--ink-muted); text-align: center; line-height: 1.6; max-width: 200px; }
+ 
+ /* Radar chart */
+ .score-hero-right {
+   display: flex; flex-direction: column; align-items: center; justify-content: center;
+   padding: 28px 20px;
+ }
+ .radar-title {
+   font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+   color: var(--ink-muted); margin-bottom: 12px; text-align: center;
+ }
+ #radar-svg { overflow: visible; display: block; }
+ .score-hero-right { overflow: visible; }
+ 
+ /* Dimension narrative cards */
+ .dim-narratives { display: flex; flex-direction: column; gap: 12px; margin-bottom: 4px; animation: fadeUp 0.5s 0.1s ease both; }
+ .dim-narrative-card {
+   background: var(--bg-card); border: 1px solid var(--border);
+   border-radius: var(--radius); padding: 20px 22px;
+   box-shadow: var(--shadow); display: grid;
+   grid-template-columns: auto 1fr auto; gap: 16px; align-items: start;
+ }
+ .dim-narrative-icon {
+   width: 40px; height: 40px; border-radius: 10px;
+   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+ }
+ .dim-narrative-icon svg { width: 20px; height: 20px; }
+ .dim-narrative-body { min-width: 0; }
+ .dim-narrative-name { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink-muted); margin-bottom: 3px; }
+ .dim-narrative-insight { font-size: 14px; color: var(--ink-soft); line-height: 1.55; }
+ .dim-narrative-score {
+   display: flex; flex-direction: column; align-items: center; flex-shrink: 0; width: 64px;
+ }
+ .dim-narrative-pct { font-family: 'Instrument Serif', serif; font-size: 26px; line-height: 1; text-align: center; width: 100%; }
+ .dim-narrative-bar-wrap { width: 60px; margin-top: 8px; }
+ .dim-narrative-bar-track { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; position: relative; min-height: 4px; }
+ .dim-narrative-bar-fill { height: 100%; border-radius: 2px; transition: width 1s ease; }
+ .dim-narrative-benchmark {
+   position: absolute; top: -4px; width: 2px; height: 12px;
+   background: var(--ink-muted); opacity: 0.5; border-radius: 1px;
+ }
+ 
+ /* Heatmap */
+ .heatmap-card {
+   background: var(--bg-card); border: 1px solid var(--border);
+   border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);
+   margin-bottom: 4px; animation: fadeUp 0.5s 0.15s ease both;
+ }
+ .heatmap-header {
+   padding: 16px 20px; border-bottom: 1px solid var(--border);
+   display: flex; justify-content: space-between; align-items: center;
+ }
+ .heatmap-title { font-family: 'Instrument Serif', serif; font-size: 17px; color: var(--ink); }
+ .heatmap-legend { display: flex; align-items: center; gap: 12px; }
+ .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--ink-muted); font-weight: 500; }
+ .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+ .heatmap-row {
+   display: grid;
+   grid-template-columns: 90px 1fr 152px;
+   padding: 12px 20px; border-bottom: 1px solid var(--border-soft);
+   align-items: center; gap: 14px;
+   transition: background 0.15s;
+ }
+ .heatmap-row:last-child { border-bottom: none; }
+ .heatmap-row:hover { background: var(--bg); }
+ .heatmap-dim-tag {
+   font-size: 10px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase;
+   padding: 3px 8px; border-radius: 4px; white-space: nowrap;
+   display: inline-block; text-align: center; width: 90px;
+ }
+ .heatmap-q-text { font-size: 13px; color: var(--ink-soft); line-height: 1.4; }
+ .heatmap-score-cell { display: flex; align-items: center; gap: 8px; justify-content: flex-end; }
+ .heatmap-dots { display: flex; gap: 3px; flex-shrink: 0; }
+ .heatmap-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+ .heatmap-score-label { font-size: 12px; font-weight: 700; width: 72px; text-align: left; }
+ 
+ /* Next steps */
+ .next-steps-card {
+   background: var(--bg-card); border: 1px solid var(--border);
+   border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);
+   margin-bottom: 4px; animation: fadeUp 0.5s 0.2s ease both;
+ }
+ .next-steps-header {
+   padding: 16px 20px; border-bottom: 1px solid var(--border);
+   display: flex; justify-content: space-between; align-items: center;
+ }
+ .next-steps-title { font-family: 'Instrument Serif', serif; font-size: 17px; color: var(--ink); }
+ .next-step-item {
+   padding: 18px 20px; border-bottom: 1px solid var(--border-soft);
+   display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: start;
+ }
+ .next-step-item:last-child { border-bottom: none; }
+ .next-step-num {
+   width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+   display: flex; align-items: center; justify-content: center;
+   font-size: 12px; font-weight: 800; color: #fff;
+ }
+ .next-step-content {}
+ .next-step-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-muted); margin-bottom: 3px; }
+ .next-step-action { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+ .next-step-detail { font-size: 13px; color: var(--ink-muted); line-height: 1.55; }
+ 
+ .section-label {
+   font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+   text-transform: uppercase; color: var(--ink-muted);
+   margin-bottom: 12px; margin-top: 32px;
+ }
+ 
+ /* Mid-page download CTA */
+ .mid-download-cta {
+   display: flex; align-items: center; justify-content: space-between; gap: 24px;
+   background: linear-gradient(135deg, #126e75 0%, #1a9fa8 100%);
+   border-radius: 16px; padding: 28px 32px; margin: 32px 0;
+   animation: fadeUp 0.5s 0.2s ease both;
+ }
+ .mid-download-left { flex: 1; }
+ .mid-download-left div:first-child { color: rgba(255,255,255,0.7) !important; }
+ .mid-download-left div:nth-child(2) { color: #fff !important; }
+ .mid-download-left div:nth-child(3) { color: rgba(255,255,255,0.75) !important; }
+ .btn-download-mid {
+   display: flex; align-items: center; gap: 10px; flex-shrink: 0;
+   background: #fff; color: var(--accent); border: none; border-radius: 50px;
+   font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700;
+   padding: 14px 28px; cursor: pointer;
+   box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+   transition: transform 0.15s, box-shadow 0.15s;
+ }
+ .btn-download-mid:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(0,0,0,0.2); }
+ 
+ /* Top companies benchmark */
+ .top-companies-grid {
+   display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;
+   margin-bottom: 4px;
+ }
+ @media (max-width: 700px) { .top-companies-grid { grid-template-columns: 1fr 1fr; } }
+ .top-co-card {
+   background: var(--bg-card); border: 1px solid var(--border);
+   border-radius: var(--radius); padding: 16px;
+   box-shadow: var(--shadow); text-align: center;
+ }
+ .top-co-name { font-size: 11px; font-weight: 700; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+ .top-co-score { font-family: 'Instrument Serif', serif; font-size: 28px; color: var(--accent-mid); line-height: 1; margin-bottom: 4px; }
+ .top-co-label { font-size: 10px; color: var(--ink-muted); }
+ .top-co-bar-track { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; margin-top: 8px; }
+ .top-co-bar-fill { height: 100%; border-radius: 2px; background: var(--grad); transition: width 1s ease; }
+ 
+ /* Wider results grid */
+ .results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; animation: fadeUp 0.5s 0.1s ease both; }
+ @media (max-width: 700px) { .results-grid { grid-template-columns: 1fr; } }
+ 
+ .cta-card {
+   background: var(--grad-warm); color: #fff;
+   border-radius: 18px; padding: 36px 40px;
+   text-align: center;
+   animation: fadeUp 0.5s 0.3s ease both;
+ }
+ .cta-card h3 {
+   font-family: 'Instrument Serif', serif; font-size: 26px; margin-bottom: 10px;
+ }
+ .cta-card p { font-size: 15px; opacity: 0.85; margin-bottom: 28px; line-height: 1.6; max-width: 480px; margin-left: auto; margin-right: auto; }
+ .btn-cta-white {
+   display: inline-flex; align-items: center; gap: 8px;
+   background: #fff; color: var(--accent);
+   border: none; border-radius: 50px;
+   font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700;
+   padding: 15px 34px; cursor: pointer;
+   text-decoration: none;
+   transition: transform 0.15s, box-shadow 0.15s;
+   box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+ }
+ .btn-cta-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+ .cta-email { font-size: 13px; opacity: 0.7; margin-top: 16px; }
+ .cta-email a { color: #fff; }
+ 
+ .section-label {
+   font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+   text-transform: uppercase; color: var(--ink-muted);
+   margin-bottom: 14px; margin-top: 36px;
+ }
+ 
+ .btn-print {
+   display: flex; align-items: center; gap: 8px;
+   background: transparent; border: 1.5px solid var(--border);
+   border-radius: 50px; padding: 12px 24px;
+   font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+   color: var(--ink-muted); cursor: pointer;
+   transition: border-color 0.15s, color 0.15s;
+   margin: 24px auto 0;
+ }
+ .btn-print:hover { border-color: var(--ink-soft); color: var(--ink); }
+ 
+ .footer {
+   text-align: center; padding: 32px 24px;
+   font-size: 12px; color: var(--ink-muted);
+   border-top: 1px solid var(--border-soft);
+   margin-top: 20px;
+ }
+ 
+ /* color helpers */
+ .c-green { color: var(--accent-mid); }
+ .c-gold { color: var(--gold); }
+ .c-orange { color: #d4700a; }
+ .c-red { color: var(--red); }
+ .bg-green-pale { background: var(--accent-pale); color: var(--accent); border: 1px solid var(--accent-pale2); }
+ .bg-gold-pale { background: var(--gold-pale); color: #8a6e00; border: 1px solid #f0dfa0; }
+ .bg-orange-pale { background: #fef3e8; color: #b05c00; border: 1px solid #f5d4a8; }
+ .bg-red-pale { background: var(--red-pale); color: var(--red); border: 1px solid #f5c6c0; }
+ .stroke-green { stroke: var(--accent-mid); }
+ .stroke-gold { stroke: var(--gold); }
+ .stroke-orange { stroke: #d4700a; }
+ .stroke-red { stroke: var(--red); }
+ .fill-green { background: var(--accent-mid); }
+ .fill-gold { background: var(--gold); }
+ .fill-orange { background: #d4700a; }
+ .fill-red { background: var(--red); }
+ 
+ @media print {
+   nav, .btn-print, .cta-card, #followup-modal { display: none !important; }
+   .screen { padding-top: 0; }
+   #screen-results { display: flex !important; }
+   body { background: #fff; }
+   .results-inner { max-width: 100%; }
+   .score-hero { page-break-inside: avoid; }
+   .dim-narrative-card, .heatmap-card, .next-steps-card { page-break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+   .section-label { margin-top: 20px; }
+   .score-ring-fill { stroke-dashoffset: var(--dash-offset, 408); }
+ }
+</style>
+</head>
+<body>
+ 
+<nav>
+ <div class="nav-logo-wrap" onclick="goHome()" style="cursor:pointer;" title="Back to home">
+   <svg width="32" height="32" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Mareva Etiko logo">
+     <defs>
+       <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+         <stop offset="0%"   stop-color="#1e6fb5"/>
+         <stop offset="35%"  stop-color="#1a9fa8"/>
+         <stop offset="70%"  stop-color="#f0a630"/>
+         <stop offset="100%" stop-color="#d63c2f"/>
+       </linearGradient>
+       <linearGradient id="g2" x1="100%" y1="0%" x2="0%" y2="100%">
+         <stop offset="0%"   stop-color="#d63c2f"/>
+         <stop offset="50%"  stop-color="#e8703a"/>
+         <stop offset="100%" stop-color="#1a9fa8"/>
+       </linearGradient>
+     </defs>
+     <!-- Outer hexagon segments approximated as filled hex with cutout -->
+     <path d="M60 4 L104 28 L104 92 L60 116 L16 92 L16 28 Z" fill="url(#g1)" opacity="0.15"/>
+     <!-- Bold coloured ring segments -->
+     <path d="M60 4 L104 28 L104 60 L60 60 Z" fill="url(#g1)" opacity="0.9"/>
+     <path d="M60 60 L104 60 L104 92 L60 116 Z" fill="#e8703a" opacity="0.9"/>
+     <path d="M60 60 L60 116 L16 92 L16 60 Z" fill="#d63c2f" opacity="0.85"/>
+     <path d="M16 60 L16 28 L60 4 L60 60 Z" fill="#1e6fb5" opacity="0.9"/>
+     <!-- White hexagon cutout -->
+     <path d="M60 30 L82 43 L82 77 L60 90 L38 77 L38 43 Z" fill="white"/>
+   </svg>
+   <span class="nav-logo">Mareva Etiko</span>
+ </div>
+ <span class="nav-badge">Free Diagnostic · 5–7 Minutes</span>
+</nav>
+ 
+<!-- ════════════════ LANDING ════════════════ -->
+<div id="screen-landing" class="screen active">
+ <div class="landing-inner">
+   <div class="landing-logo-mark">
+     <svg width="56" height="56" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <defs>
+         <linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%">
+           <stop offset="0%"   stop-color="#1e6fb5"/>
+           <stop offset="35%"  stop-color="#1a9fa8"/>
+           <stop offset="70%"  stop-color="#f0a630"/>
+           <stop offset="100%" stop-color="#d63c2f"/>
+         </linearGradient>
+       </defs>
+       <path d="M60 4 L104 28 L104 60 L60 60 Z" fill="#1e6fb5" opacity="0.92"/>
+       <path d="M60 60 L104 60 L104 92 L60 116 Z" fill="#e8703a" opacity="0.92"/>
+       <path d="M60 60 L60 116 L16 92 L16 60 Z" fill="#d63c2f" opacity="0.88"/>
+       <path d="M16 60 L16 28 L60 4 L60 60 Z" fill="#1a9fa8" opacity="0.92"/>
+       <path d="M60 32 L81 44.5 L81 75.5 L60 88 L39 75.5 L39 44.5 Z" fill="white"/>
+     </svg>
+   </div>
+   <div class="landing-eyebrow">
+     <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M6 4v4M4 6h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+     Research-Backed Diagnostic Framework
+   </div>
+   <h1 class="landing-title">ESG × <em>AI</em><br>Readiness Check</h1>
+   <p class="landing-subtitle">A structured diagnostic for ESG, sustainability and CSR leaders. Ten questions across five dimensions — built on peer-reviewed research and regulatory frameworks.</p>
+ 
+   <div class="landing-stats">
+     <div class="stat">
+       <span class="stat-num">10</span>
+       <span class="stat-label">Questions</span>
+     </div>
+     <div class="stat-divider"></div>
+     <div class="stat">
+       <span class="stat-num">5</span>
+       <span class="stat-label">Dimensions</span>
+     </div>
+     <div class="stat-divider"></div>
+     <div class="stat">
+       <span class="stat-num">100</span>
+       <span class="stat-label">Point Score</span>
+     </div>
+   </div>
+ 
+   <button class="btn-primary" onclick="startQuiz()">
+     Begin Diagnostic
+     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+   </button>
+ 
+   <div class="landing-research">
+     <div class="landing-research-label">Built from research by</div>
+     <div class="source-pills">
+       <span class="source-pill">IFRS / ISSB</span>
+       <span class="source-pill">EFRAG / CSRD</span>
+       <span class="source-pill">Harvard Law Forum</span>
+       <span class="source-pill">EDM Council</span>
+       <span class="source-pill">KPMG</span>
+       <span class="source-pill">PwC</span>
+       <span class="source-pill">The Conference Board</span>
+       <span class="source-pill">UNESCO / Thomson Reuters</span>
+       <span class="source-pill">UN Global Compact</span>
+     </div>
+   </div>
+ </div>
+</div>
+ 
+<!-- ════════════════ QUIZ ════════════════ -->
+<div id="screen-quiz" class="screen">
+ <div class="quiz-shell">
+   <div class="quiz-progress-bar-wrap">
+     <div class="quiz-progress-meta">
+       <span class="quiz-progress-label" id="q-dimension-label">—</span>
+       <span class="quiz-progress-count" id="q-counter">1 / 10</span>
+     </div>
+     <div class="progress-track">
+       <div class="progress-fill" id="progress-fill" style="width:10%"></div>
+     </div>
+   </div>
+   <div class="quiz-card" id="quiz-card">
+     <div class="dim-transition" id="dim-transition">
+       <div class="dim-transition-dot"></div>
+       <span id="dim-transition-text">—</span>
+     </div>
+     <div class="q-dimension" id="q-dimension">—</div>
+     <div class="q-text" id="q-text">—</div>
+     <div class="q-subtext" id="q-subtext">—</div>
+     <div class="options-list" id="options-list"></div>
+ 
+     <div class="quiz-nav">
+       <button class="btn-back" id="btn-back" onclick="goBack()">
+         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L3 7l6 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+         Back
+       </button>
+       <button class="btn-next" id="btn-next" onclick="goNext()">
+         Next
+         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+       </button>
+     </div>
+   </div>
+ </div>
+</div>
+ 
+<!-- ════════════════ GATE ════════════════ -->
+<div id="screen-gate" class="screen">
+ <div class="gate-card">
+   <div class="gate-eyebrow">Almost There</div>
+   <h2 class="gate-title">Personalise your report card</h2>
+   <p class="gate-subtitle">Enter your details to receive your ESG × AI Readiness score and a tailored summary of your organisation's readiness gaps.</p>
+   <div class="form-error" id="form-error">Please complete all required fields.</div>
+   <div class="form-row">
+     <div class="form-group">
+       <label>First Name *</label>
+       <input type="text" id="f-first" placeholder="Jane">
+     </div>
+     <div class="form-group">
+       <label>Last Name *</label>
+       <input type="text" id="f-last" placeholder="Smith">
+     </div>
+   </div>
+   <div class="form-group">
+     <label>Work Email *</label>
+     <input type="email" id="f-email" placeholder="jane@company.com">
+   </div>
+   <div class="form-group">
+     <label>Organisation *</label>
+     <input type="text" id="f-org" placeholder="Company name">
+   </div>
+   <input type="hidden" id="f-title" value="">
+   <input type="hidden" id="f-size" value="">
+ 
+   <p class="form-consent">By submitting this form, you agree to Mareva Etiko contacting you with your results and relevant insights. Your data is handled in accordance with our <a href="#">Privacy Policy</a>. We do not share your information with third parties.</p>
+   <button class="btn-primary" style="width:100%;justify-content:center;" onclick="submitGate()">
+     View My Report Card
+     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+   </button>
+ </div>
+</div>
+ 
+<!-- ════════════════ RESULTS ════════════════ -->
+<div id="screen-results" class="screen">
+ <div class="results-inner">
+ 
+   <!-- ── Retake banner ── -->
+   <div id="retake-banner" style="display:none;background:var(--accent-pale);border:1px solid var(--accent-pale2);border-radius:var(--radius);padding:16px 20px;margin-bottom:20px;animation:fadeUp 0.4s ease both;">
+     <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;">Progress Since Last Assessment</div>
+     <div id="retake-text" style="font-size:14px;color:var(--ink-soft);line-height:1.5;"></div>
+   </div>
+ 
+   <!-- ── Score hero ── -->
+   <div class="results-header">
+     <div class="results-eyebrow">ESG × AI Readiness Report Card</div>
+     <h2 class="results-name" id="r-name">—</h2>
+     <div class="results-org" id="r-org">—</div>
+ 
+     <div class="score-hero">
+       <div class="score-hero-left">
+         <div class="score-ring">
+           <svg viewBox="0 0 140 140" width="160" height="160">
+             <defs>
+               <linearGradient id="ring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                 <stop offset="0%" stop-color="#1e6fb5"/>
+                 <stop offset="45%" stop-color="#1a9fa8"/>
+                 <stop offset="100%" stop-color="#f0a630"/>
+               </linearGradient>
+             </defs>
+             <circle class="score-ring-track" cx="70" cy="70" r="65"/>
+             <circle class="score-ring-fill" id="score-ring-fill" cx="70" cy="70" r="65"/>
+           </svg>
+           <div class="score-ring-center">
+             <span class="score-num" id="r-score">—</span>
+             <span class="score-denom">/ 100</span>
+           </div>
+         </div>
+         <span class="score-level-badge" id="r-level-badge">—</span>
+         <p class="score-level-desc" id="r-level-desc">—</p>
+       </div>
+       <div class="score-hero-right">
+         <div class="radar-title">Readiness by Dimension</div>
+         <svg id="radar-svg" width="240" height="220" viewBox="0 0 240 220"></svg>
+       </div>
+     </div>
+   </div>
+ 
+   <!-- ── Mid-page download CTA — shown near top so it's seen before scrolling ── -->
+   <div class="mid-download-cta" id="mid-download-cta">
+     <div class="mid-download-left">
+       <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:6px;">Want the full picture?</div>
+       <div style="font-family:'Instrument Serif',serif;font-size:20px;color:#fff;margin-bottom:4px;">Find more in your detailed report</div>
+       <div style="font-size:13px;color:rgba(255,255,255,0.75);line-height:1.55;">Includes maturity roadmap, gap severity analysis, sector benchmarks, full methodology, citations, and scientific framework.</div>
+     </div>
+     <button class="btn-download-mid" onclick="downloadReport()">
+       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v9M5 8l3 3 3-3M2 12v1a1 1 0 001 1h10a1 1 0 001-1v-1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+       Download Full Report
+     </button>
+   </div>
+ 
+   <!-- ── Top companies benchmark bar ── -->
+   <div id="top-companies-bar" style="animation:fadeUp 0.4s 0.05s ease both"></div>
+ 
+   <!-- ── Dimension insight cards (condensed) ── -->
+   <div class="section-label">Readiness by Dimension</div>
+   <div class="dim-narratives" id="dim-narratives"></div>
+ 
+   <!-- ── Score heatmap ── -->
+   <div class="section-label">Score Heatmap</div>
+   <div class="heatmap-card" id="heatmap-card"></div>
+ 
+   <!-- ── Top 3 next steps only ── -->
+   <div class="section-label">Your Top 3 Priority Actions</div>
+   <div class="next-steps-card" id="next-steps-card"></div>
+ 
+   <!-- ── CTA card ── -->
+   <div class="cta-card" style="margin-top:8px">
+     <h3>Ready for the Full Audit?</h3>
+     <p>This diagnostic is your starting point. The Mareva Etiko ESG × AI Readiness Audit goes deeper — mapping your organisation's specific gaps, benchmarking against sector peers and delivering a 90-day activation roadmap.</p>
+     <button class="btn-cta-white" onclick="sendDiscoveryEmail()">
+       Request a Discovery Call
+       <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+     </button>
+     <div class="cta-email">Or email us directly: <button onclick="sendEmail()" style="background:none;border:none;color:#fff;text-decoration:underline;cursor:pointer;font-size:13px;opacity:0.85;padding:0;font-family:inherit;">hello@marevaetiko.com</button></div>
+   </div>
+ 
+   <!-- ── Bottom download ── -->
+   <button class="btn-print" onclick="downloadReport()">
+     <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2v7M4 6l3 3 3-3M2 10v1a1 1 0 001 1h8a1 1 0 001-1v-1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+     Download Full Report Card
+   </button>
+ 
+   <div class="footer">© 2026 Mareva Etiko. This diagnostic provides a high-level indication of readiness only. Full methodology and citations available in the downloadable report.</div>
+ </div>
+</div>
+ 
+<script>
+/* ═══════════════════════════════════════════════════
+  DATA
+═══════════════════════════════════════════════════ */
+const DIMENSIONS = [
+ "Data Infrastructure & Quality",
+ "Governance & Accountability",
+ "Regulatory & Reporting Readiness",
+ "Strategy & Integration",
+ "Technology & AI Literacy"
+];
+ 
+const QUESTIONS = [
+ // ── Dimension 1: Data Infrastructure & Quality ──
+ // Q1 weight 10 (Tier 2): Collection process is foundational but one step below
+ // data quality — you can have a collection process and still have bad data.
+ // Ranked below Q2 because process without quality has limited value.
+ // Source: EDM Council Playbook (April 2024) identifies siloed, manual collection
+ // as the primary barrier to scalable ESG reporting across all organisation sizes.
+ // KPMG (2024 Sustainability Organisation Survey) found 47% of organisations still
+ // rely on spreadsheets — confirming this is a widespread, measurable failure point.
+ {
+   id: 1,
+   dimension: "Data Infrastructure & Quality",
+   dimIndex: 0,
+   weight: 10,
+   tier: "Tier 2",
+   text: "How would you describe the way your organisation currently collects and stores ESG data?",
+   subtext: "Tests whether basic data infrastructure exists for reliable ESG reporting and AI use.",
+   research: "EDM Council Playbook (April 2024): siloed, manual collection is the primary barrier to scalable ESG reporting. KPMG 2024 Sustainability Organisation Survey: 47% of organisations still rely on spreadsheets for ESG data management.",
+   options: [
+     { score: 1, label: "Fragmented", desc: "ESG data is scattered across teams with no central process or system." },
+     { score: 2, label: "Early stage", desc: "Some data is collected, but it relies on manual inputs and spreadsheets." },
+     { score: 3, label: "Developing", desc: "We have a basic process, but it is inconsistent across departments." },
+     { score: 4, label: "Structured", desc: "Data is collected consistently using defined templates or a shared system." },
+     { score: 5, label: "Integrated", desc: "ESG data flows through integrated systems with clear processes and documentation." }
+   ]
+ },
+ // Q2 weight 11 (Tier 1): Data quality is the single most operationally critical
+ // infrastructure factor — inaccurate data invalidates every downstream output
+ // including disclosures, audits, and AI models. Ranked above Q1 because even a
+ // well-structured collection process produces unreliable results without quality controls.
+ // Source: PwC ESG Data Quality Under the Microscope (2026): CSRD assurance places
+ // data quality controls under direct auditor scrutiny — weak quality is the leading
+ // cause of material misstatement in ESG reporting.
+ // IFRS S1 General Requirements (June 2023): requires that sustainability disclosures
+ // be "faithfully representative" — a direct quality standard.
+ {
+   id: 2,
+   dimension: "Data Infrastructure & Quality",
+   dimIndex: 0,
+   weight: 11,
+   tier: "Tier 1",
+   text: "How confident are you in the accuracy, completeness, and reliability of your ESG data?",
+   subtext: "Tests whether data is audit-ready and trustworthy enough to support external disclosure.",
+   research: "PwC ESG Data Quality Under the Microscope (Feb 2026): CSRD assurance places data quality controls under direct auditor scrutiny. IFRS S1 General Requirements (ISSB, June 2023): sustainability disclosures must be 'faithfully representative' — a binding quality standard.",
+   options: [
+     { score: 1, label: "Not confident", desc: "We have serious concerns about the accuracy of our ESG data." },
+     { score: 2, label: "Somewhat uncertain", desc: "Data exists but is not validated or reviewed for errors." },
+     { score: 3, label: "Partially confident", desc: "We check some data but have gaps in completeness or verification." },
+     { score: 4, label: "Mostly confident", desc: "Our data is reviewed and largely reliable, with minor gaps." },
+     { score: 5, label: "Fully confident", desc: "Our ESG data is validated, documented, and audit-ready." }
+   ]
+ },
+ // Q3 weight 10 (Tier 2): Supplier and value chain data is weighted equally to Q1
+ // because Scope 3 emissions and supply chain disclosures are mandatory under CSRD
+ // ESRS E1 and are a known audit risk. Ranked below Q2 because it is a specific
+ // application of data quality rather than the underlying capability itself.
+ // Source: PwC ESG Data Collection & Reporting (2024): Scope 3 and value chain data
+ // are identified as the highest-risk category for ESG auditors due to fragmentation
+ // and lack of standardisation across supply chains.
+ // EFRAG ESRS Implementation Guidance IG 2 — Value Chain (May 2024): explicitly
+ // identifies value chain data collection as one of the three most challenging ESRS
+ // implementation areas.
+ {
+   id: 3,
+   dimension: "Data Infrastructure & Quality",
+   dimIndex: 0,
+   weight: 10,
+   tier: "Tier 2",
+   text: "How well can your organisation collect and manage ESG data from your supply chain and value chain partners?",
+   subtext: "Tests whether the company can manage Scope 3 and supplier ESG data — a mandatory CSRD disclosure area.",
+   research: "PwC ESG Data Collection & Reporting (2024): Scope 3 and value chain data are the highest-risk category for ESG auditors. EFRAG ESRS Implementation Guidance IG 2 — Value Chain (May 2024): value chain data collection is one of the three most challenging ESRS implementation areas.",
+   options: [
+     { score: 1, label: "No visibility", desc: "We have no ESG data from our supply chain." },
+     { score: 2, label: "Very limited", desc: "We collect minimal supplier data with no standard process." },
+     { score: 3, label: "Partial", desc: "We collect some supplier data but it is incomplete and unverified." },
+     { score: 4, label: "Structured collection", desc: "We use consistent methods to collect supplier ESG data for key categories." },
+     { score: 5, label: "Full visibility", desc: "We have comprehensive supplier ESG data with verification and audit capability." }
+   ]
+ },
+ // ── Dimension 2: Governance & Accountability ──
+ // Q4 weight 12 (Tier 1): Governance ownership is the highest single-question weight
+ // in the framework. Without a defined owner, data quality cannot be enforced,
+ // regulatory gaps cannot be closed, and AI governance cannot be implemented.
+ // It is the prerequisite that determines whether all other dimensions can function.
+ // Ranked above Q2 because ownership unlocks quality — not the other way around.
+ // Source: KPMG Netherlands — Data Governance: The Key to Reliable ESG Data (Jan 2026):
+ // "A logical allocation of responsibilities through a governance framework is a key
+ // success factor for enabling high-quality and trustworthy ESG data."
+ // Harvard Law School Forum on Corporate Governance — Inside IFRS S1 and S2 (Aug 2023):
+ // IFRS S1 requires board-level governance disclosure over sustainability risks —
+ // confirming that ownership accountability is a regulatory requirement, not a best practice.
+ {
+   id: 4,
+   dimension: "Governance & Accountability",
+   dimIndex: 1,
+   weight: 12,
+   tier: "Tier 1",
+   text: "Who owns ESG data in your organisation, and how clearly is accountability defined?",
+   subtext: "Tests whether ESG data ownership is formally assigned — the prerequisite for all other readiness dimensions.",
+   research: "KPMG Netherlands — Data Governance: The Key to Reliable ESG Data (Jan 2026): governance ownership is the key success factor for trustworthy ESG data. Harvard Law School Forum — Inside IFRS S1 and S2 (Aug 2023): IFRS S1 requires board-level governance disclosure, making ownership a regulatory obligation.",
+   options: [
+     { score: 1, label: "No ownership", desc: "No one is formally responsible for ESG data." },
+     { score: 2, label: "Informal", desc: "One person manages it informally but it is not a defined role." },
+     { score: 3, label: "Partial", desc: "Some areas have defined owners but accountability is inconsistent." },
+     { score: 4, label: "Defined", desc: "There is a designated owner and governance structure for ESG data." },
+     { score: 5, label: "Embedded", desc: "ESG data governance is formalised with clear roles, escalation paths, and board oversight." }
+   ]
+ },
+ // Q5 weight 8 (Tier 5): Stakeholder communication is downstream — it depends entirely
+ // on the quality and reliability of data, governance, and reporting systems already
+ // being in place. Weighted lower than all other questions because strong communication
+ // cannot compensate for weak foundations, but weak communication is less damaging
+ // than weak data or governance. Still weighted at 8 (not negligible) because
+ // credible disclosure is the ultimate purpose of ESG reporting.
+ // Source: PwC How Internal Controls Can Help Transform Sustainability Reporting (2025):
+ // "Without accurate data and strong controls, communication to stakeholders becomes
+ // a reputational risk rather than an asset."
+ // Harvard Law School Forum — ESG Performance Metrics in Executive Pay (Jan 2024):
+ // investor trust in ESG disclosures depends on verifiability — confirming that
+ // communication quality is meaningful but conditional on upstream readiness.
+ {
+   id: 5,
+   dimension: "Governance & Accountability",
+   dimIndex: 1,
+   weight: 8,
+   tier: "Tier 5",
+   text: "How consistently and credibly does your organisation communicate ESG performance to stakeholders?",
+   subtext: "Tests whether ESG communication is verifiable and supported by reliable underlying data and governance.",
+   research: "PwC — How Internal Controls Can Help Transform Sustainability Reporting (2025): without strong data controls, ESG communication becomes a reputational risk. Harvard Law School Forum — ESG Performance Metrics in Executive Pay (Jan 2024): investor trust in ESG disclosures depends on verifiability of underlying data.",
+   options: [
+     { score: 1, label: "No formal communication", desc: "We do not have a regular process for ESG stakeholder communication." },
+     { score: 2, label: "Ad hoc", desc: "We communicate occasionally but without a consistent format or process." },
+     { score: 3, label: "Annual report only", desc: "We publish basic ESG information annually but it lacks depth or verification." },
+     { score: 4, label: "Regular and structured", desc: "We communicate regularly with defined metrics, narrative, and review." },
+     { score: 5, label: "Verified and strategic", desc: "Our ESG communication is verified, aligned with reporting frameworks, and tied to strategy." }
+   ]
+ },
+ // ── Dimension 3: Regulatory & Reporting Readiness ──
+ // Q6 weight 11 (Tier 2): Regulatory readiness is weighted equally to data quality
+ // because CSRD and ISSB create binding legal obligations with financial and
+ // reputational consequences for non-compliance. Ranked below Q4 (governance) because
+ // regulatory readiness cannot be achieved without governance ownership in place first.
+ // Ranked above Q1 and Q3 because regulatory failure creates direct legal exposure,
+ // whereas data infrastructure failure creates operational risk that can be remediated.
+ // Source: IFRS S1 and S2 (ISSB, June 2023): effective for annual periods beginning
+ // 1 January 2024 — a live legal obligation in adopting jurisdictions.
+ // EFRAG — Simplified ESRS (December 2025): mandatory datapoints reduced by 61% but
+ // core obligations remain — confirming that regulatory readiness is an active requirement.
+ {
+   id: 6,
+   dimension: "Regulatory & Reporting Readiness",
+   dimIndex: 2,
+   weight: 11,
+   tier: "Tier 2",
+   text: "How prepared is your organisation to report under CSRD, ISSB, TCFD, GRI, or other applicable frameworks?",
+   subtext: "Tests whether the company understands and can meet current mandatory disclosure requirements.",
+   research: "IFRS S1 and S2 (ISSB, June 2023): effective from 1 January 2024 — a live legal obligation in adopting jurisdictions. EFRAG Simplified ESRS (December 2025): mandatory datapoints reduced by 61% but core obligations remain, confirming regulatory readiness is an active and evolving requirement.",
+   options: [
+     { score: 1, label: "Unaware", desc: "We have not assessed which frameworks apply to us." },
+     { score: 2, label: "Early awareness", desc: "We know the frameworks exist but have not begun preparation." },
+     { score: 3, label: "Gap assessment underway", desc: "We are mapping requirements but have significant gaps remaining." },
+     { score: 4, label: "Partially prepared", desc: "We are ready for some requirements but not all material areas." },
+     { score: 5, label: "Fully prepared", desc: "We have mapped all applicable frameworks and are on track to report fully." }
+   ]
+ },
+ // ── Dimension 4: Strategy & Integration ──
+ // Q7 weight 10 (Tier 3): Strategic integration is weighted as a strategic enabler —
+ // meaningful but conditional on foundational readiness. Ranked below Tier 1 and 2
+ // because ESG cannot drive strategic value without reliable data and governance
+ // already functioning. Ranked above AI adoption (Q8) because strategy integration
+ // is a broader organisational capability that enables AI adoption, not the reverse.
+ // Source: PwC — How Internal Controls Can Help Transform Sustainability Reporting (2025):
+ // when ESG data is governed by effective controls, it becomes a trusted input for
+ // strategic decisions including capital allocation and risk management.
+ // The Conference Board — ESG Performance Metrics in Executive Compensation 2024:
+ // 77.2% of S&P 500 companies link ESG to executive compensation — confirming that
+ // strategic integration is now a mainstream governance practice, not an aspiration.
+ {
+   id: 7,
+   dimension: "Strategy & Integration",
+   dimIndex: 3,
+   weight: 10,
+   tier: "Tier 3",
+   text: "To what extent is ESG data integrated into senior decision-making and business strategy?",
+   subtext: "Tests whether ESG drives real business decisions or remains a standalone compliance function.",
+   research: "PwC — How Internal Controls Can Help Transform Sustainability Reporting (2025): governed ESG data becomes a trusted input for capital allocation and risk management. The Conference Board — ESG Performance Metrics in Executive Compensation 2024 Edition: 77.2% of S&P 500 companies link ESG to executive compensation, confirming strategic integration is now mainstream practice.",
+   options: [
+     { score: 1, label: "Not integrated", desc: "ESG is handled separately and does not influence business decisions." },
+     { score: 2, label: "Reported but siloed", desc: "ESG metrics are reported but not used in strategic planning." },
+     { score: 3, label: "Partially integrated", desc: "ESG is referenced in some decisions but not systematically." },
+     { score: 4, label: "Integrated", desc: "ESG metrics are regularly reviewed by senior leadership and inform key decisions." },
+     { score: 5, label: "Embedded", desc: "ESG is a core input to strategy, capital allocation, risk management, and executive performance." }
+   ]
+ },
+ // Q8 weight 10 (Tier 3): AI adoption readiness is weighted equally to strategy
+ // integration because the two are interdependent — AI without strategic direction
+ // produces noise, and strategy without AI-ready systems limits analytical capability.
+ // Ranked above AI literacy (Q9) and AI governance (Q10) because organisational
+ // readiness to adopt is the precondition for both using tools and governing them.
+ // Source: PwC ESG Data Collection & Reporting (2024): companies using digital and AI
+ // tools for ESG gain a measurable competitive and compliance advantage.
+ // UNESCO / Thomson Reuters Foundation — Responsible AI in Practice (April 2026):
+ // AI is being embedded across companies faster than governance and disclosure are
+ // developing — confirming that adoption readiness is a current strategic risk.
+ {
+   id: 8,
+   dimension: "Strategy & Integration",
+   dimIndex: 3,
+   weight: 10,
+   tier: "Tier 3",
+   text: "How ready is your organisation to adopt AI-enabled tools for ESG data collection, analysis, or reporting?",
+   subtext: "Tests whether the company has the systems, culture, and data foundation to benefit from AI in ESG work.",
+   research: "PwC ESG Data Collection & Reporting (2024): companies using AI tools for ESG gain a measurable competitive and compliance advantage. UNESCO / Thomson Reuters Foundation — Responsible AI in Practice (April 2026): AI is being embedded across 3,000 companies faster than governance is developing — confirming adoption readiness is a live strategic risk.",
+   options: [
+     { score: 1, label: "Not ready", desc: "We lack the data quality, systems, or culture to adopt AI for ESG." },
+     { score: 2, label: "Early stage", desc: "We are exploring AI tools but have no clear plan." },
+     { score: 3, label: "Developing", desc: "We have some tools in place but adoption is limited and uncoordinated." },
+     { score: 4, label: "Structured adoption", desc: "We are actively adopting AI tools with defined use cases and training." },
+     { score: 5, label: "AI-enabled", desc: "AI is embedded in our ESG workflows with governance, training, and clear accountability." }
+   ]
+ },
+ // ── Dimension 5: Technology & AI Literacy ──
+ // Q9 weight 9 (Tier 4): AI literacy is weighted as an emerging risk — important and
+ // growing but not yet a primary compliance obligation. Ranked below Tier 3 because
+ // literacy is an enabler of adoption, not a prerequisite for governance or reporting.
+ // Ranked above responsible AI policy (Q10) because you cannot govern what your team
+ // does not understand — literacy must precede policy.
+ // Source: UN Global Compact — AI and the SDGs (2025): digital fluency and ethical
+ // AI literacy are identified as prerequisites for responsible AI-enabled sustainability
+ // work across all 17 SDG intersections.
+ // UNESCO / Thomson Reuters Foundation — Responsible AI in Practice (April 2026):
+ // only 48% of 3,000 companies disclosed an AI strategy, confirming that literacy
+ // gaps are widespread and create measurable governance risk.
+ {
+   id: 9,
+   dimension: "Technology & AI Literacy",
+   dimIndex: 4,
+   weight: 9,
+   tier: "Tier 4",
+   text: "How would you describe your ESG team's ability to work with AI and data analytics tools?",
+   subtext: "Tests whether the ESG team can understand, evaluate, and use AI tools responsibly.",
+   research: "UN Global Compact — AI and the Sustainable Development Goals (2025): digital fluency and ethical AI literacy are prerequisites for responsible AI-enabled sustainability work. UNESCO / Thomson Reuters Foundation — Responsible AI in Practice (April 2026): only 48% of 3,000 companies disclosed an AI strategy, confirming literacy gaps are widespread.",
+   options: [
+     { score: 1, label: "No exposure", desc: "The team has no experience with AI or data analytics tools." },
+     { score: 2, label: "Awareness only", desc: "We are aware of AI tools but do not use them for ESG work." },
+     { score: 3, label: "Basic use", desc: "Some team members use AI tools informally without formal training." },
+     { score: 4, label: "Developing competency", desc: "We are actively building AI literacy across the ESG function." },
+     { score: 5, label: "Embedded competency", desc: "Our team regularly uses AI and data tools and understands their limits and risks." }
+   ]
+ },
+ // Q10 weight 9 (Tier 4): Responsible AI policy is weighted equally to AI literacy
+ // because governance without literacy is hollow, and literacy without governance
+ // creates unchecked risk. Both are emerging obligations — the EU AI Act (2024)
+ // and UNESCO Recommendation on the Ethics of AI (2021) signal that AI governance
+ // will become a formal requirement, but enforcement is still developing.
+ // Ranked below Tier 3 because AI policy is a downstream output of literacy and
+ // adoption readiness — you cannot govern what you have not yet adopted.
+ // Source: UNESCO / Thomson Reuters Foundation — Responsible AI in Practice (April 2026):
+ // only 10% of 3,000 companies had a public commitment to an AI governance framework
+ // despite AI being embedded in products and operations across all 13 sectors studied.
+ // EU AI Act (August 2024): entered into force — the first binding AI governance
+ // regulation globally, confirming that responsible AI policy is moving from best
+ // practice to legal requirement.
+ {
+   id: 10,
+   dimension: "Technology & AI Literacy",
+   dimIndex: 4,
+   weight: 9,
+   tier: "Tier 4",
+   text: "Does your organisation have a defined policy or framework for responsible AI use in ESG work?",
+   subtext: "Tests whether the company has governance guardrails for AI use in ESG reporting and decision-making.",
+   research: "UNESCO / Thomson Reuters Foundation — Responsible AI in Practice (April 2026): only 10% of 3,000 companies had a public AI governance commitment despite widespread AI adoption. EU AI Act (August 2024): entered into force as the first binding AI governance regulation globally — confirming responsible AI policy is becoming a legal requirement.",
+   options: [
+     { score: 1, label: "No policy", desc: "We have no AI policy and have not considered one for ESG use." },
+     { score: 2, label: "Aware of the need", desc: "We acknowledge the need for an AI policy but have not developed one." },
+     { score: 3, label: "In development", desc: "We are developing an AI use policy for sustainability applications." },
+     { score: 4, label: "Policy in place", desc: "We have an AI use policy that covers ESG-related applications." },
+     { score: 5, label: "Embedded governance", desc: "We have a formal responsible AI framework with oversight, review processes, and public commitments." }
+   ]
+ }
+];
+ 
+/* ═══════════════════════════════════════════════════
+  STATE
+═══════════════════════════════════════════════════ */
+let currentQ = 0;
+let answers = new Array(10).fill(null);
+let userData = {};
+let followupAnswer = null;
+ 
+/* ═══════════════════════════════════════════════════
+  SCREEN CONTROL
+═══════════════════════════════════════════════════ */
+function showScreen(id) {
+ document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ window.scrollTo(0, 0);
+}
+ 
+function goHome() {
+ // Reset state
+ currentQ = 0;
+ answers = new Array(10).fill(null);
+ userData = {};
+ followupAnswer = null;
+ showScreen('screen-landing');
+}
+ 
+/* ═══════════════════════════════════════════════════
+  QUIZ
+═══════════════════════════════════════════════════ */
+function startQuiz() {
+ currentQ = 0;
+ answers = new Array(10).fill(null);
+ renderQuestion();
+ showScreen('screen-quiz');
+}
+ 
+function renderQuestion() {
+ const q = QUESTIONS[currentQ];
+ const prev = currentQ > 0 ? QUESTIONS[currentQ - 1] : null;
+ const isNewDim = !prev || prev.dimIndex !== q.dimIndex;
+ 
+ document.getElementById('q-dimension-label').textContent = q.dimension;
+ document.getElementById('q-counter').textContent = `${currentQ + 1} / ${QUESTIONS.length}`;
+ document.getElementById('progress-fill').style.width = `${((currentQ + 1) / QUESTIONS.length) * 100}%`;
+ document.getElementById('q-dimension').textContent = q.dimension;
+ document.getElementById('q-text').textContent = q.text;
+ document.getElementById('q-subtext').textContent = q.subtext;
+ 
+ 
+ // Dimension transition banner
+ const dimBanner = document.getElementById('dim-transition');
+ const dimCount = QUESTIONS.filter(x => x.dimIndex === q.dimIndex).length;
+ const dimNum = q.dimIndex + 1;
+ if (isNewDim && currentQ > 0) {
+   document.getElementById('dim-transition-text').textContent =
+     `Moving into Dimension ${dimNum} of 5: ${q.dimension} · ${dimCount} question${dimCount > 1 ? 's' : ''}`;
+   dimBanner.classList.add('visible');
+ } else {
+   dimBanner.classList.remove('visible');
+ }
+ 
+ const list = document.getElementById('options-list');
+ list.innerHTML = '';
+ q.options.forEach((opt, i) => {
+   const btn = document.createElement('button');
+   btn.className = 'option-btn' + (answers[currentQ] === opt.score ? ' selected' : '');
+   btn.innerHTML = `
+     <span class="option-score">${opt.score}</span>
+     <span class="option-text"><strong>${opt.label}</strong>${opt.desc}</span>`;
+   btn.addEventListener('click', () => selectOption(opt.score));
+   list.appendChild(btn);
+ });
+ 
+ // Research citation
+ let cite = document.getElementById('q-research-cite');
+ if (!cite) {
+   cite = document.createElement('div');
+   cite.id = 'q-research-cite';
+   cite.className = 'q-research-cite';
+   list.parentNode.insertBefore(cite, list.nextSibling);
+ }
+ cite.innerHTML = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 3h8M2 6h6M2 9h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg> <span>${q.research}</span>`;
+ 
+ const nextBtn = document.getElementById('btn-next');
+ nextBtn.textContent = currentQ === QUESTIONS.length - 1 ? 'View Results' : 'Next';
+ nextBtn.innerHTML += `<svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+ nextBtn.classList.toggle('ready', answers[currentQ] !== null);
+ document.getElementById('btn-back').style.visibility = currentQ === 0 ? 'hidden' : 'visible';
+ 
+ // re-trigger animation
+ const card = document.getElementById('quiz-card');
+ card.style.animation = 'none';
+ requestAnimationFrame(() => { card.style.animation = ''; });
+}
+ 
+function selectOption(score) {
+ answers[currentQ] = score;
+ document.querySelectorAll('.option-btn').forEach(btn => {
+   const s = parseInt(btn.querySelector('.option-score').textContent);
+   btn.classList.toggle('selected', s === score);
+ });
+ document.getElementById('btn-next').classList.add('ready');
+}
+ 
+function goNext() {
+ if (answers[currentQ] === null) return;
+ if (currentQ < QUESTIONS.length - 1) {
+   currentQ++;
+   renderQuestion();
+ } else {
+   showScreen('screen-gate');
+ }
+}
+ 
+function goBack() {
+ if (currentQ > 0) { currentQ--; renderQuestion(); }
+ else showScreen('screen-landing');
+}
+ 
+/* ═══════════════════════════════════════════════════
+  GATE
+═══════════════════════════════════════════════════ */
+function submitGate() {
+ const first  = document.getElementById('f-first').value.trim();
+ const last   = document.getElementById('f-last').value.trim();
+ const email  = document.getElementById('f-email').value.trim();
+ const org    = document.getElementById('f-org').value.trim();
+ const err    = document.getElementById('form-error');
+ 
+ if (!first || !last || !email || !org) {
+   err.classList.add('visible'); return;
+ }
+ err.classList.remove('visible');
+ 
+ userData = {
+   first, last, email, org, sector: 'other',
+   title: document.getElementById('f-title').value.trim(),
+   size:  document.getElementById('f-size').value
+ };
+ buildResults();
+ showScreen('screen-results');
+
+ // ── GOOGLE SHEETS INTEGRATION ──
+ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyW3CvEDbjggQq7xAXxD4UHdge58CdTuceA_3SHi1cvPoCQdnBjM1PGrUeN3AHJh7VX/exec';
+ const totalScore = Math.round(QUESTIONS.reduce((sum, q, i) => sum + ((answers[i] || 0) / 5) * q.weight, 0));
+
+ fetch(APPS_SCRIPT_URL, {
+   method: 'POST',
+   mode: 'no-cors',
+   headers: { 'Content-Type': 'application/json' },
+   body: JSON.stringify({
+     date:       new Date().toLocaleDateString('en-GB'),
+     firstName:  first,
+     lastName:   last,
+     email:      email,
+     company:    org,
+     totalScore: totalScore,
+     q1:  answers[0] || 0,
+     q2:  answers[1] || 0,
+     q3:  answers[2] || 0,
+     q4:  answers[3] || 0,
+     q5:  answers[4] || 0,
+     q6:  answers[5] || 0,
+     q7:  answers[6] || 0,
+     q8:  answers[7] || 0,
+     q9:  answers[8] || 0,
+     q10: answers[9] || 0,
+   })
+ }).catch(err => console.error('Sheet error:', err));
+}
+ 
+/* ═══════════════════════════════════════════════════
+  SCORING
+═══════════════════════════════════════════════════ */
+function calcScore() {
+ let total = 0;
+ QUESTIONS.forEach((q, i) => {
+   const s = answers[i] || 0;
+   total += (s / 5) * q.weight;
+ });
+ return Math.round(total);
+}
+ 
+function calcDimScores() {
+ const dims = DIMENSIONS.map(() => ({ earned: 0, max: 0 }));
+ QUESTIONS.forEach((q, i) => {
+   const s = answers[i] || 0;
+   dims[q.dimIndex].earned += (s / 5) * q.weight;
+   dims[q.dimIndex].max    += q.weight;
+ });
+ return dims.map(d => ({ pct: Math.round((d.earned / d.max) * 100), max: d.max }));
+}
+ 
+function getLevel(score) {
+ if (score >= 85) return {
+   label: 'High Readiness', desc: 'Strong ESG data, governance, reporting, and AI readiness foundation.',
+   cls: 'bg-green-pale', stroke: 'stroke-green', fill: 'fill-green'
+ };
+ if (score >= 65) return {
+   label: 'Moderate Readiness', desc: 'Some structure exists, but material gaps remain across key readiness areas.',
+   cls: 'bg-gold-pale', stroke: 'stroke-gold', fill: 'fill-gold'
+ };
+ if (score >= 40) return {
+   label: 'Limited Readiness', desc: 'Significant weaknesses exist across multiple ESG readiness dimensions.',
+   cls: 'bg-orange-pale', stroke: 'stroke-orange', fill: 'fill-orange'
+ };
+ return {
+   label: 'Critical Gaps', desc: 'Foundational ESG and AI readiness issues require immediate attention.',
+   cls: 'bg-red-pale', stroke: 'stroke-red', fill: 'fill-red'
+ };
+}
+ 
+function getDimColor(pct) {
+ if (pct >= 80) return '#1a9fa8';
+ if (pct >= 60) return '#d48a0c';
+ if (pct >= 40) return '#d4700a';
+ return '#c0392b';
+}
+ 
+/* ═══════════════════════════════════════════════════
+  DIMENSION NARRATIVES
+═══════════════════════════════════════════════════ */
+const DIM_ICONS = [
+ // Data Infrastructure
+ `<svg viewBox="0 0 20 20" fill="none"><rect x="2" y="5" width="16" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M6 9h8M6 12h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`,
+ // Governance
+ `<svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M4 17c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`,
+ // Regulatory
+ `<svg viewBox="0 0 20 20" fill="none"><path d="M5 3h10l2 3-7 11L3 6l2-3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M10 8v4M10 14v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`,
+ // Strategy
+ `<svg viewBox="0 0 20 20" fill="none"><path d="M3 17l4-4 4 2 6-8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="16" cy="4" r="2" stroke="currentColor" stroke-width="1.5"/></svg>`,
+ // Technology
+ `<svg viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="11" y="3" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="11" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M14 11v6M11 14h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>`
+];
+ 
+const DIM_NARRATIVES = [
+ // Data Infrastructure — band: [0-39, 40-64, 65-84, 85-100]
+ [
+   "Your ESG data is critically fragmented. Without centralised, reliable data you cannot produce credible disclosures or benefit from AI tools. Establishing a unified data collection process is the single most urgent action.",
+   "You have some ESG data in place but it is inconsistent and not audit-ready. The priority is moving away from spreadsheets toward structured, validated data flows that can support reporting and external assurance.",
+   "Your data infrastructure is developing well. Focus now on closing verification gaps, formalising processes across all departments, and ensuring supplier data is captured consistently.",
+   "Strong data infrastructure. Your ESG data is well-structured and largely reliable. The focus should shift to automation, real-time monitoring, and ensuring full Scope 3 coverage."
+ ],
+ // Governance & Accountability
+ [
+   "ESG data ownership is unclear or absent. Without assigned accountability, data quality will remain unreliable regardless of systems investment. Defining ownership is the immediate priority.",
+   "Governance is informal and inconsistent. You need a formal ESG data owner with clear responsibilities, escalation paths, and board-level visibility of ESG data quality.",
+   "Governance structure is in place but communication to stakeholders could be strengthened. Formalise your review process and ensure ESG disclosures are consistently verified before publication.",
+   "Strong governance and accountability. ESG data is well-owned and stakeholder communication is credible. Focus on maintaining oversight as reporting requirements evolve."
+ ],
+ // Regulatory & Reporting Readiness
+ [
+   "You are not yet prepared for mandatory ESG reporting. CSRD, ISSB IFRS S1 and S2, and TCFD requirements are coming regardless of company size. A gap assessment should begin immediately.",
+   "You are aware of requirements but preparation is incomplete. Map which frameworks apply to your organisation and develop a phased implementation plan with clear milestones.",
+   "You are on track for most requirements but material gaps remain. Focus on completing your regulatory mapping, addressing assurance readiness, and closing any outstanding data or disclosure gaps.",
+   "You are well-prepared for current ESG reporting obligations. Stay ahead by monitoring ESRS simplification developments, ISSB adoption updates, and sector-specific guidance as it emerges."
+ ],
+ // Strategy & Integration
+ [
+   "ESG is disconnected from your business strategy and not influencing decisions. This limits both the value of ESG work and your readiness to benefit from AI-enabled reporting tools.",
+   "ESG is reported but not truly integrated. Connect ESG metrics to business KPIs, risk management, and at least one executive accountability mechanism to begin generating strategic value.",
+   "ESG is reasonably integrated into decision-making. Deepen this by linking ESG performance to capital allocation decisions and ensuring AI adoption plans include a clear ESG use case.",
+   "ESG is embedded in your strategy and decision-making. The next step is using AI tools to generate real-time insights from ESG data and feeding those insights into board-level reporting."
+ ],
+ // Technology & AI Literacy
+ [
+   "Your team lacks AI and data literacy, and no responsible AI policy is in place. This creates both capability risk and governance risk as AI becomes standard in ESG reporting. Begin with foundational training.",
+   "Awareness exists but capability is limited. Invest in structured AI literacy for your ESG team and begin developing a responsible AI use policy before expanding tool adoption.",
+   "AI literacy is developing and some governance is forming. Formalise your AI policy, assign accountability for AI oversight, and pilot one AI tool with clear performance criteria.",
+   "Strong AI literacy and governance. Your organisation is positioned to lead on AI-enabled ESG reporting. Publish your responsible AI commitments and contribute to sector-level best practice."
+ ]
+];
+ 
+const NEXT_STEPS_DB = {
+ 0: { // Data Infrastructure
+   low:  { action: "Audit your current ESG data sources and centralise collection", detail: "Map every ESG data point you currently collect, identify who owns it, and build a single inventory. This is the prerequisite for everything else." },
+   mid:  { action: "Migrate from spreadsheets to a structured ESG data system", detail: "Evaluate purpose-built ESG data platforms or configure your existing data infrastructure to handle ESG inputs with validation and version control." },
+   high: { action: "Automate Scope 3 and supplier data collection", detail: "Extend your data infrastructure into the value chain. Automate collection where possible and implement verification processes for high-risk supplier categories." }
+ },
+ 1: { // Governance
+   low:  { action: "Appoint a formal ESG data owner immediately", detail: "Assign clear accountability for ESG data quality, completeness, and governance. This role should have board-level visibility and defined escalation paths." },
+   mid:  { action: "Build an ESG data governance framework", detail: "Document roles, responsibilities, data quality standards, and review processes. Align this with your financial reporting controls structure." },
+   high: { action: "Strengthen external ESG communication and assurance readiness", detail: "Ensure your ESG disclosures are verified before publication, clearly linked to underlying data, and aligned with stakeholder expectations." }
+ },
+ 2: { // Regulatory
+   low:  { action: "Conduct a regulatory gap assessment this quarter", detail: "Identify which frameworks apply to your organisation — CSRD, ISSB, TCFD, GRI — and map your current disclosures against each requirement." },
+   mid:  { action: "Build a phased regulatory compliance roadmap", detail: "Prioritise the gaps with the highest audit and compliance risk. Assign owners, set milestones, and begin preparing for external assurance." },
+   high: { action: "Monitor ESRS simplification and sector-specific updates", detail: "EFRAG released simplified ESRS in December 2025. Assess how changes affect your current reporting obligations and update your compliance plan." }
+ },
+ 3: { // Strategy
+   low:  { action: "Connect ESG metrics to at least one business KPI", detail: "Identify one material ESG risk or opportunity that directly affects financial performance and integrate it into your regular leadership reporting." },
+   mid:  { action: "Link ESG performance to executive accountability", detail: "The Conference Board found 77% of S&P 500 companies use ESG in executive compensation. Introduce at least one ESG metric into leadership performance frameworks." },
+   high: { action: "Define your AI-enabled ESG reporting roadmap", detail: "With strategy and systems in place, develop a 12-month plan for adopting AI tools in ESG data collection, analysis, and reporting — with clear governance." }
+ },
+ 4: { // Technology
+   low:  { action: "Begin foundational AI literacy training for your ESG team", detail: "UN Global Compact research identifies digital fluency as a prerequisite for responsible AI adoption. Start with structured training on how AI works and its risks." },
+   mid:  { action: "Draft a responsible AI use policy for ESG applications", detail: "UNESCO and Thomson Reuters found only 10% of 3,000 companies had a public AI governance commitment. Develop a clear policy before expanding tool use." },
+   high: { action: "Pilot one AI tool for ESG data analysis with defined success criteria", detail: "With literacy and governance in place, run a structured pilot — AI-assisted materiality assessment, emissions forecasting, or disclosure drafting — and measure outcomes." }
+ }
+};
+ 
+/* ═══════════════════════════════════════════════════
+  RADAR CHART
+═══════════════════════════════════════════════════ */
+function buildRadar(dims) {
+ const svg = document.getElementById('radar-svg');
+ // Larger viewBox so labels never clip
+ svg.setAttribute('viewBox','0 0 280 260');
+ svg.setAttribute('width','280');
+ svg.setAttribute('height','260');
+ 
+ const cx = 140, cy = 122, r = 78;
+ const n = 5;
+ const labels = ['Data', 'Governance', 'Regulatory', 'Strategy', 'Technology'];
+ const angleFor = i => (i * 2 * Math.PI / n) - Math.PI / 2;
+ const point = (i, pct) => {
+   const a = angleFor(i);
+   const dist = (pct / 100) * r;
+   return [cx + dist * Math.cos(a), cy + dist * Math.sin(a)];
+ };
+ 
+ let html = '';
+ 
+ // Grid rings with subtle value labels at top axis
+ [20,40,60,80,100].forEach(v => {
+   const pts = Array.from({length:n}, (_,i) => point(i,v).join(',')).join(' ');
+   html += `<polygon points="${pts}" fill="none" stroke="#e0e4e8" stroke-width="1"/>`;
+ });
+ 
+ // Axes
+ for (let i = 0; i < n; i++) {
+   const [x,y] = point(i, 100);
+   html += `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#e0e4e8" stroke-width="1"/>`;
+ }
+ 
+ 
+ 
+ // Score polygon
+ const scorePts = Array.from({length:n}, (_,i) => point(i, dims[i].pct).join(',')).join(' ');
+ html += `<polygon points="${scorePts}" fill="rgba(26,159,168,0.13)" stroke="url(#ring-grad)" stroke-width="2.5"/>`;
+ 
+ // Score dots + pct labels placed OUTSIDE dot along the axis direction
+ for (let i = 0; i < n; i++) {
+   const pct = dims[i].pct;
+   const [x,y] = point(i, pct);
+   html += `<circle cx="${x}" cy="${y}" r="4.5" fill="url(#ring-grad)" stroke="white" stroke-width="2"/>`;
+ 
+   // Place pct label 18px further along same axis direction, away from centre
+   if (pct > 0) {
+     const a = angleFor(i);
+     const labelDist = (pct / 100) * r + 16;
+     const lx = cx + labelDist * Math.cos(a);
+     const ly = cy + labelDist * Math.sin(a);
+     // anchor: left side → end, right side → start, top/bottom → middle
+     const anchor = Math.cos(a) < -0.3 ? 'end' : Math.cos(a) > 0.3 ? 'start' : 'middle';
+     html += `<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="${anchor}" dominant-baseline="middle"
+       font-family="DM Sans,sans-serif" font-size="9" font-weight="700" fill="#126e75">${pct}%</text>`;
+   }
+ }
+ 
+ // Axis labels — placed far enough out to never overlap the pct values
+ for (let i = 0; i < n; i++) {
+   const a = angleFor(i);
+   const labelR = r + 28;
+   const lx = cx + labelR * Math.cos(a);
+   const ly = cy + labelR * Math.sin(a);
+   const anchor = Math.cos(a) < -0.3 ? 'end' : Math.cos(a) > 0.3 ? 'start' : 'middle';
+   html += `<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="${anchor}" dominant-baseline="middle"
+     font-family="DM Sans,sans-serif" font-size="10.5" font-weight="600" fill="#7a7f92">${labels[i]}</text>`;
+ }
+ 
+ 
+ 
+ svg.innerHTML = html;
+}
+ 
+/* ═══════════════════════════════════════════════════
+  BUILD RESULTS
+═══════════════════════════════════════════════════ */
+function buildResults() {
+ const score = calcScore();
+ const level = getLevel(score);
+ const dims  = calcDimScores();
+ 
+ // ── Header ──
+ document.getElementById('r-name').textContent = `${userData.first} ${userData.last}`;
+ document.getElementById('r-org').textContent  = userData.org + (userData.size ? ` · ${userData.size}` : '');
+ document.getElementById('r-score').textContent = score;
+ 
+ // ── Ring ──
+ const ring = document.getElementById('score-ring-fill');
+ ring.className = 'score-ring-fill';
+ ring.style.stroke = 'url(#ring-grad)';
+ const circumference = 2 * Math.PI * 65;
+ setTimeout(() => { ring.style.strokeDashoffset = circumference * (1 - score / 100); }, 200);
+ 
+ // ── Level badge ──
+ const badge = document.getElementById('r-level-badge');
+ badge.textContent = level.label;
+ badge.className = `score-level-badge ${level.cls}`;
+ document.getElementById('r-level-desc').textContent = level.desc;
+ 
+ // ── Radar chart ──
+ setTimeout(() => buildRadar(dims), 100);
+ 
+ // ── Dimension narrative cards ──
+ const dimBand = pct => pct >= 85 ? 3 : pct >= 65 ? 2 : pct >= 40 ? 1 : 0;
+ const dimColors = ['#1a9fa8','#d48a0c','#d4700a','#d63c2f'];
+ const dimBgColors = ['#e4f6f7','#fdf6dc','#fef3e8','#fdf0ee'];
+ const dimTextColors = ['#126e75','#8a6e00','#b05c00','#d63c2f'];
+ 
+ const narrativesEl = document.getElementById('dim-narratives');
+ narrativesEl.innerHTML = DIMENSIONS.map((name, i) => {
+   const d = dims[i];
+   const band = dimBand(d.pct);
+   const col = dimColors[band];
+   const bg  = dimBgColors[band];
+   const tc  = dimTextColors[band];
+   const narrative = DIM_NARRATIVES[i][band];
+   return `
+   <div class="dim-narrative-card">
+     <div class="dim-narrative-icon" style="background:${bg}; color:${col}">${DIM_ICONS[i]}</div>
+     <div class="dim-narrative-body">
+       <div class="dim-narrative-name">${name}</div>
+       <div class="dim-narrative-insight">${narrative}</div>
+     </div>
+     <div class="dim-narrative-score">
+       <div class="dim-narrative-pct" style="color:${col}">${d.pct}%</div>
+       <div class="dim-narrative-bar-wrap">
+         <div class="dim-narrative-bar-track">
+           <div class="dim-narrative-bar-fill" style="width:0%;background:${col}" data-width="${d.pct}"></div>
+         </div>
+       </div>
+     </div>
+   </div>`;
+ }).join('');
+ setTimeout(() => {
+   document.querySelectorAll('.dim-narrative-bar-fill').forEach(el => {
+     el.style.width = el.dataset.width + '%';
+   });
+ }, 350);
+ 
+ // ── Score heatmap ──
+ const DIM_COLORS_MAP = ['#1e6fb5','#126e75','#2d9e5f','#d48a0c','#d4700a'];
+ const DIM_BG_MAP     = ['#e8f0f8','#e4f6f7','#e4f4ec','#fdf6dc','#fef3e8'];
+ const SCORE_LABELS   = ['','Critical','Weak','Developing','Strong','Excellent'];
+ const scoreColor     = s => s >= 4 ? '#1a9fa8' : s === 3 ? '#d48a0c' : '#d63c2f';
+ 
+ const heatmap = document.getElementById('heatmap-card');
+ heatmap.innerHTML = `
+   <div class="heatmap-header">
+     <span class="heatmap-title">Question Score Heatmap</span>
+     <div class="heatmap-legend">
+       <div class="legend-item"><div class="legend-dot" style="background:#1a9fa8"></div>Strong (4–5)</div>
+       <div class="legend-item"><div class="legend-dot" style="background:#d48a0c"></div>Developing (3)</div>
+       <div class="legend-item"><div class="legend-dot" style="background:#d63c2f"></div>Weak (1–2)</div>
+     </div>
+   </div>
+   ${QUESTIONS.map((q, i) => {
+     const s = answers[i] || 0;
+     const col = scoreColor(s);
+     const dimCol = DIM_COLORS_MAP[q.dimIndex];
+     const dimBg  = DIM_BG_MAP[q.dimIndex];
+     const dots = Array.from({length:5}, (_,d) =>
+       `<div class="heatmap-dot" style="background:${d < s ? col : 'var(--border)'}"></div>`
+     ).join('');
+     const shortText = q.text.length > 80 ? q.text.substring(0,78)+'…' : q.text;
+     return `
+     <div class="heatmap-row">
+       <span class="heatmap-dim-tag" style="background:${dimBg};color:${dimCol}">${q.dimension.split(' ')[0]}</span>
+       <span class="heatmap-q-text">${shortText}</span>
+       <div class="heatmap-score-cell">
+         <div class="heatmap-dots">${dots}</div>
+         <span class="heatmap-score-label" style="color:${col}">${SCORE_LABELS[s]}</span>
+       </div>
+     </div>`;
+   }).join('')}`;
+ 
+ // ── Next steps — 3 lowest-scoring dimensions ──
+ const dimsSorted = dims.map((d,i) => ({i, pct: d.pct})).sort((a,b) => a.pct - b.pct);
+ const stepColors = ['#d63c2f','#d4700a','#d48a0c'];
+ 
+ const nextSteps = document.getElementById('next-steps-card');
+ nextSteps.innerHTML = `
+   <div class="next-steps-header">
+     <span class="next-steps-title">Your Top 3 Priority Actions</span>
+     <span style="font-size:12px;color:var(--ink-muted)">Based on lowest-scoring dimensions</span>
+   </div>
+   ${dimsSorted.slice(0,3).map((item, idx) => {
+     const band = dimBand(item.pct);
+     const stepKey = band <= 1 ? 'low' : band === 2 ? 'mid' : 'high';
+     const step = NEXT_STEPS_DB[item.i][stepKey];
+     const col = stepColors[idx];
+     return `
+     <div class="next-step-item">
+       <div class="next-step-num" style="background:${col}">${idx+1}</div>
+       <div class="next-step-content">
+         <div class="next-step-label">${DIMENSIONS[item.i]} · ${item.pct}% readiness</div>
+         <div class="next-step-action">${step.action}</div>
+         <div class="next-step-detail">${step.detail}</div>
+       </div>
+     </div>`;
+   }).join('')}`;
+ 
+ // ── Top companies benchmark ──
+ buildTopCompanies(dims, score);
+ 
+ // ── Sector benchmarks ──
+ buildSectorBenchmarks(dims, score);
+ 
+ // ── Gap severity flags ──
+ buildGapSeverity(dims);
+ 
+ // ── Maturity roadmap ──
+ buildMaturityRoadmap(score);
+ 
+ // ── Retake comparison ──
+ checkRetakeHistory(score);
+ 
+ // ── Save current result for retake ──
+ saveResultHistory(score, dims);
+ 
+ // ── Trigger follow-up for lowest-scoring dim ──
+ setTimeout(() => triggerFollowup(dimsSorted[0].i), 800);
+}
+ 
+/* ═══════════════════════════════════════════════════
+  TOP COMPANIES BENCHMARK
+═══════════════════════════════════════════════════ */
+// Benchmark scores based on publicly available ESG reporting maturity data:
+// Microsoft, Unilever, Patagonia from KPMG ESG Assurance Maturity Index 2023
+// and CDP A-List 2024. Scores are illustrative representations of disclosed
+// readiness levels, not direct diagnostic scores from this tool.
+const TOP_COMPANIES = [
+ { name: "Microsoft",  score: 91, note: "CDP A-List 2024" },
+ { name: "Unilever",   score: 88, note: "KPMG Maturity Index" },
+ { name: "Patagonia",  score: 85, note: "B Corp certified" },
+ { name: "Nestlé",     score: 79, note: "TCFD aligned" },
+ { name: "Avg. S&P 500", score: 62, note: "Conference Board 2024" }
+];
+ 
+function buildTopCompanies(dims, score) {
+ const el = document.getElementById('top-companies-bar');
+ if (!el) return;
+ 
+ const cards = TOP_COMPANIES.map(co => {
+   const isUser = false;
+   const col = co.score >= 85 ? '#1a9fa8' : co.score >= 65 ? '#d48a0c' : '#d4700a';
+   return `
+   <div class="top-co-card">
+     <div class="top-co-name">${co.name}</div>
+     <div class="top-co-score" style="color:${col}">${co.score}</div>
+     <div class="top-co-label">${co.note}</div>
+     <div class="top-co-bar-track"><div class="top-co-bar-fill" style="width:0%" data-width="${co.score}"></div></div>
+   </div>`;
+ });
+ 
+ // Add user's score card
+ const userCol = score >= 85 ? '#1a9fa8' : score >= 65 ? '#d48a0c' : score >= 40 ? '#d4700a' : '#d63c2f';
+ cards.push(`
+   <div class="top-co-card" style="border-color:${userCol};border-width:2px">
+     <div class="top-co-name" style="color:${userCol}">Your Score</div>
+     <div class="top-co-score" style="color:${userCol}">${score}</div>
+     <div class="top-co-label">This assessment</div>
+     <div class="top-co-bar-track"><div class="top-co-bar-fill" style="width:0%;background:${userCol}" data-width="${score}"></div></div>
+   </div>`);
+ 
+ el.innerHTML = `
+   <div class="section-label" style="margin-top:0">How You Compare</div>
+   <div style="font-size:12px;color:var(--ink-muted);margin-bottom:14px;line-height:1.55;">
+     Benchmark scores are illustrative representations of ESG reporting maturity based on KPMG ESG Assurance Maturity Index (2023), CDP A-List (2024), and The Conference Board S&P 500 analysis (2024). They are not direct scores from this diagnostic.
+   </div>
+   <div class="top-companies-grid">${cards.join('')}</div>`;
+ 
+ setTimeout(() => {
+   document.querySelectorAll('.top-co-bar-fill').forEach(el => {
+     el.style.width = el.dataset.width + '%';
+   });
+ }, 400);
+}
+ 
+/* ═══════════════════════════════════════════════════
+  SECTOR BENCHMARKS
+═══════════════════════════════════════════════════ */
+const SECTOR_BENCHMARKS = {
+ financial:    { label: 'Financial Services', avg: [72,78,80,65,58] },
+ manufacturing:{ label: 'Manufacturing',      avg: [55,60,62,50,42] },
+ energy:       { label: 'Energy & Utilities', avg: [68,72,75,62,48] },
+ retail:       { label: 'Retail',             avg: [50,55,58,48,40] },
+ tech:         { label: 'Technology',         avg: [65,68,60,72,75] },
+ real_estate:  { label: 'Real Estate',        avg: [48,52,55,45,38] },
+ healthcare:   { label: 'Healthcare',         avg: [58,65,68,55,50] },
+ professional: { label: 'Professional Services', avg: [62,68,65,60,55] },
+ transport:    { label: 'Transport',          avg: [52,56,58,48,40] },
+ other:        { label: 'Your Sector',        avg: [58,62,62,55,48] }
+};
+ 
+function buildSectorBenchmarks(dims, score) {
+ const el = document.getElementById('sector-benchmarks');
+ if (!el) return;
+ const bench = SECTOR_BENCHMARKS[userData.sector] || SECTOR_BENCHMARKS.other;
+ const overallBench = Math.round(bench.avg.reduce((a,b)=>a+b,0)/5);
+ 
+ el.innerHTML = `
+   <div class="next-steps-header">
+     <span class="next-steps-title">Sector Comparison: ${bench.label}</span>
+     <span style="font-size:12px;color:var(--ink-muted)">Your score vs. sector average</span>
+   </div>
+   <div style="background:var(--bg);border-bottom:1px solid var(--border);padding:10px 20px;font-size:11.5px;color:var(--ink-muted);line-height:1.55;">
+     <strong style="color:var(--ink-soft)">Methodology note:</strong> Sector averages are Mareva Etiko internal estimates derived from aggregated client assessment data, published ESG maturity research (KPMG ESG Assurance Maturity Index 2023; PwC ESG Data Collection & Reporting Survey 2024; EDM Council Playbook April 2024), and regulatory readiness indicators from EFRAG and the ISSB. They represent directional benchmarks, not statistically validated population means. Figures will be updated as the dataset grows.
+   </div>
+   <div style="padding:0 20px 4px">
+     <div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border-soft);align-items:center">
+       <span style="font-size:13px;font-weight:600;color:var(--ink)">Overall Score</span>
+       <div style="display:flex;align-items:center;gap:16px">
+         <span style="font-size:12px;color:var(--ink-muted)">Sector avg: <strong>${overallBench}</strong></span>
+         <span style="font-family:'Instrument Serif',serif;font-size:22px;color:${score>=overallBench?'#1a9fa8':'#d63c2f'}">${score > overallBench ? '+' : ''}${score - overallBench}</span>
+       </div>
+     </div>
+     ${DIMENSIONS.map((name, i) => {
+       const yours = dims[i].pct;
+       const avg = bench.avg[i];
+       const diff = yours - avg;
+       const col = diff >= 0 ? '#1a9fa8' : '#d63c2f';
+       const barMax = 100;
+       return `
+       <div style="padding:12px 0;border-bottom:1px solid var(--border-soft)">
+         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
+           <span style="font-size:12px;color:var(--ink-soft)">${name}</span>
+           <div style="display:flex;align-items:center;gap:10px">
+             <span style="font-size:11px;color:var(--ink-muted)">Sector: ${avg}%</span>
+             <span style="font-size:12px;font-weight:700;color:${col}">${diff>=0?'+':''}${diff}%</span>
+           </div>
+         </div>
+         <div style="position:relative;height:6px;background:var(--border);border-radius:3px;overflow:hidden">
+           <div style="position:absolute;left:0;top:0;height:100%;width:${avg}%;background:rgba(120,130,150,0.3);border-radius:3px;"></div>
+           <div style="position:absolute;left:0;top:0;height:100%;width:${yours}%;background:${col};border-radius:3px;opacity:0.85;transition:width 1s ease"></div>
+         </div>
+       </div>`;
+     }).join('')}
+   </div>`;
+}
+ 
+/* ═══════════════════════════════════════════════════
+  GAP SEVERITY FLAGS
+═══════════════════════════════════════════════════ */
+// CSRD scope: in-scope companies face highest regulatory risk on Regulatory + Data dims
+const SECTOR_CSRD_RISK = {
+ financial:'high', manufacturing:'high', energy:'high',
+ retail:'medium', tech:'medium', real_estate:'high',
+ healthcare:'medium', professional:'low', transport:'high', other:'medium'
+};
+ 
+function buildGapSeverity(dims) {
+ const el = document.getElementById('gap-severity');
+ if (!el) return;
+ const csrdRisk = SECTOR_CSRD_RISK[userData.sector] || 'medium';
+ 
+ const flags = [];
+ dims.forEach((d, i) => {
+   if (d.pct < 40) {
+     const isRegRisk = (i === 2 || i === 0) && csrdRisk === 'high';
+     flags.push({ dim: DIMENSIONS[i], pct: d.pct, severity: isRegRisk ? 'critical' : 'high', i });
+   } else if (d.pct < 65) {
+     flags.push({ dim: DIMENSIONS[i], pct: d.pct, severity: 'medium', i });
+   }
+ });
+ 
+ if (!flags.length) {
+   el.innerHTML = `<div style="padding:20px;font-size:14px;color:var(--ink-muted);text-align:center">No critical gaps identified. Focus on maintaining and improving your current readiness.</div>`;
+   return;
+ }
+ 
+ const sevConfig = {
+   critical: { label:'Critical — Immediate Action', bg:'#fdf0ee', col:'#d63c2f', border:'#f5c6c0' },
+   high:     { label:'High Risk', bg:'#fef3e8', col:'#d4700a', border:'#f5d4a8' },
+   medium:   { label:'Moderate Gap', bg:'var(--gold-pale)', col:'#8a6e00', border:'#f0dfa0' }
+ };
+ 
+ const csrdNote = csrdRisk === 'high'
+   ? `<div style="margin:0 20px 4px;background:var(--accent-pale);border:1px solid var(--accent-pale2);border-radius:var(--radius-sm);padding:14px 16px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start">
+       <div style="width:36px;height:36px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+         <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L2 14h14L9 2z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 8v3M9 13v.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+       </div>
+       <div>
+         <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);margin-bottom:3px">CSRD Regulatory Exposure</div>
+         <div style="font-size:13px;color:var(--ink-soft);line-height:1.55">Based on your sector, your organisation is likely <strong style="color:var(--accent)">in scope for CSRD reporting</strong>. Gaps in Data Infrastructure and Regulatory Readiness carry direct audit and compliance risk — these should be treated as the highest priority.</div>
+       </div>
+     </div>` : csrdRisk === 'medium'
+   ? `<div style="margin:0 20px 4px;background:var(--gold-pale);border:1px solid #f0dfa0;border-radius:var(--radius-sm);padding:14px 16px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start">
+       <div style="width:36px;height:36px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+         <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="white" stroke-width="1.5"/><path d="M9 6v4M9 12v.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+       </div>
+       <div>
+         <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#8a6e00;margin-bottom:3px">Moderate Regulatory Exposure</div>
+         <div style="font-size:13px;color:var(--ink-soft);line-height:1.55">Your sector may be subject to ESG reporting requirements depending on organisation size and jurisdiction. Monitor CSRD and ISSB adoption in your region.</div>
+       </div>
+     </div>` : '';
+ 
+ el.innerHTML = `
+   <div class="next-steps-header">
+     <span class="next-steps-title">Gap Severity Analysis</span>
+     <span style="font-size:12px;color:var(--ink-muted)">${flags.length} gap${flags.length>1?'s':''} identified</span>
+   </div>
+   ${csrdNote}
+   ${flags.sort((a,b)=>['critical','high','medium'].indexOf(a.severity)-['critical','high','medium'].indexOf(b.severity))
+     .map(f => {
+       const cfg = sevConfig[f.severity];
+       return `
+       <div style="padding:14px 20px;border-bottom:1px solid var(--border-soft);display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start">
+         <div style="background:${cfg.bg};border:1px solid ${cfg.border};border-radius:6px;padding:4px 10px;font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:${cfg.col};white-space:nowrap">${cfg.label}</div>
+         <div>
+           <div style="font-size:13px;font-weight:600;color:var(--ink);margin-bottom:2px">${f.dim}</div>
+           <div style="font-size:12px;color:var(--ink-muted)">${f.pct}% readiness — ${f.severity === 'critical' ? 'This gap creates direct regulatory or audit exposure and requires immediate resolution.' : f.severity === 'high' ? 'This gap needs structured attention within 90 days to avoid compliance risk.' : 'This gap should be addressed in the next planning cycle.'}</div>
+         </div>
+       </div>`;
+     }).join('')}`;
+}
+ 
+/* ═══════════════════════════════════════════════════
+  MATURITY ROADMAP
+═══════════════════════════════════════════════════ */
+function buildMaturityRoadmap(score) {
+ const el = document.getElementById('maturity-roadmap');
+ if (!el) return;
+ 
+ const stages = [
+   { id:0, label:'Foundation', range:'0–39', desc:'Establish basic data collection, assign ESG data ownership, and conduct a regulatory gap assessment.', threshold:40 },
+   { id:1, label:'Compliance', range:'40–64', desc:'Achieve regulatory readiness, implement formal governance, and build audit-ready data processes.', threshold:65 },
+   { id:2, label:'Integration', range:'65–84', desc:'Connect ESG to strategy and executive decision-making. Adopt AI tools with defined governance.', threshold:85 },
+   { id:3, label:'Optimisation', range:'85–100', desc:'Lead on ESG reporting quality. Automate, benchmark, and publish responsible AI commitments.', threshold:101 }
+ ];
+ 
+ const current = score < 40 ? 0 : score < 65 ? 1 : score < 85 ? 2 : 3;
+ 
+ el.innerHTML = `
+   <div class="next-steps-header">
+     <span class="next-steps-title">ESG Maturity Roadmap</span>
+     <span style="font-size:12px;color:var(--ink-muted)">You are at Stage ${current+1} of 4</span>
+   </div>
+   <div style="padding:20px">
+     <div style="display:flex;align-items:center;gap:0;margin-bottom:24px;position:relative">
+       <div style="position:absolute;top:14px;left:14px;right:14px;height:3px;background:var(--border);z-index:0"></div>
+       <div style="position:absolute;top:14px;left:14px;height:3px;width:${current===0?'0':current===1?'33%':current===2?'66%':'100%'};background:var(--grad);z-index:1;transition:width 1.2s ease;border-radius:2px"></div>
+       ${stages.map((s,i) => {
+         const done = i < current;
+         const active = i === current;
+         const bg = done ? 'var(--accent-mid)' : active ? 'var(--accent)' : 'var(--border)';
+         const col = (done||active) ? '#fff' : 'var(--ink-muted)';
+         return `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;z-index:2;position:relative">
+           <div style="width:28px;height:28px;border-radius:50%;background:${bg};color:${col};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:2px solid ${active?'var(--accent-mid)':'transparent'}">${done?'✓':i+1}</div>
+           <span style="font-size:11px;font-weight:${active?'700':'500'};color:${active?'var(--accent)':'var(--ink-muted)'};text-align:center">${s.label}</span>
+         </div>`;
+       }).join('')}
+     </div>
+     <div style="background:var(--accent-pale);border:1px solid var(--accent-pale2);border-radius:var(--radius-sm);padding:14px 16px">
+       <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent);margin-bottom:4px">Current Stage: ${stages[current].label} (${stages[current].range})</div>
+       <div style="font-size:13px;color:var(--ink-soft);line-height:1.55">${stages[current].desc}</div>
+       ${current < 3 ? `<div style="font-size:12px;color:var(--accent-mid);margin-top:8px;font-weight:600">Next milestone: reach ${stages[current+1].threshold} points to enter the ${stages[current+1].label} stage</div>` : ''}
+     </div>
+   </div>`;
+}
+ 
+/* ═══════════════════════════════════════════════════
+  RETAKE / HISTORY
+═══════════════════════════════════════════════════ */
+function saveResultHistory(score, dims) {
+ try {
+   const history = JSON.parse(localStorage.getItem('me_esg_history') || '[]');
+   history.push({ date: new Date().toISOString(), score, dims: dims.map(d=>d.pct), org: userData.org });
+   localStorage.setItem('me_esg_history', JSON.stringify(history.slice(-5)));
+ } catch(e) {
+   console.warn('localStorage not available — retake tracking disabled:', e);
+ }
+}
+ 
+function checkRetakeHistory(score) {
+ try {
+   const history = JSON.parse(localStorage.getItem('me_esg_history') || '[]');
+   if (history.length < 2) return;
+   const prev = history[history.length - 2];
+   const banner = document.getElementById('retake-banner');
+   const textEl = document.getElementById('retake-text');
+   if (!banner || !textEl) return;
+   const diff = score - prev.score;
+   const prevDate = new Date(prev.date).toLocaleDateString('en-GB',{month:'short',year:'numeric'});
+   textEl.innerHTML = `Since your last assessment (${prevDate}), your overall score has <strong style="color:${diff>=0?'#1a9fa8':'#d63c2f'}">${diff>=0?'improved by +'+diff:'changed by '+diff} points</strong> (${prev.score} → ${score}).`;
+   banner.style.display = 'block';
+ } catch(e) {}
+}
+ 
+/* ═══════════════════════════════════════════════════
+  FOLLOW-UP QUESTIONS
+═══════════════════════════════════════════════════ */
+const FOLLOWUP_QUESTIONS = [
+ { q: "What is the main barrier to improving your ESG data infrastructure?",
+   sub: "This helps us tailor our audit recommendations to your specific situation.",
+   opts: ["Lack of budget or resources","No clear ownership or accountability","Technology and systems gaps","Competing business priorities","Lack of internal expertise"] },
+ { q: "What is your biggest governance challenge?",
+   sub: "Understanding your barrier helps us focus the audit on the right areas.",
+   opts: ["No formal ESG data owner","Board-level buy-in is limited","Unclear roles across departments","No escalation process","Inconsistent reporting standards"] },
+ { q: "Which regulatory framework concerns you most?",
+   sub: "This helps us prioritise the right framework guidance in your report.",
+   opts: ["CSRD / ESRS","ISSB IFRS S1 & S2","TCFD","GRI","Not sure which applies to us"] },
+ { q: "What is preventing deeper ESG integration into strategy?",
+   sub: "Your answer will shape the strategic recommendations in your full audit.",
+   opts: ["ESG not yet linked to financial KPIs","Limited leadership engagement","No ESG performance in executive incentives","Lack of data to support decisions","ESG seen as compliance only"] },
+ { q: "What is your main barrier to AI adoption in ESG work?",
+   sub: "This helps us identify the right starting point for AI-enabled ESG in your organisation.",
+   opts: ["Team lacks AI literacy","No responsible AI policy","Data quality is not ready","No clear use case identified","Budget or technology constraints"] }
+];
+ 
+function triggerFollowup(dimIndex) {
+ const fq = FOLLOWUP_QUESTIONS[dimIndex];
+ if (!fq) return;
+ const modal = document.getElementById('followup-modal');
+ document.getElementById('followup-question').textContent = fq.q;
+ document.getElementById('followup-sub').textContent = fq.sub;
+ const optsEl = document.getElementById('followup-options');
+ optsEl.innerHTML = fq.opts.map((o,i) => `
+   <button onclick="selectFollowup(this,'${o.replace(/'/g,"\'")}')"
+     style="text-align:left;padding:12px 16px;border:1.5px solid var(--border);border-radius:var(--radius-sm);background:var(--bg);font-family:'DM Sans',sans-serif;font-size:13px;color:var(--ink-soft);cursor:pointer;transition:border-color 0.15s,background 0.15s">
+     ${o}
+   </button>`).join('');
+ modal.style.display = 'block';
+}
+ 
+function selectFollowup(btn, value) {
+ followupAnswer = value;
+ document.querySelectorAll('#followup-options button').forEach(b => {
+   b.style.borderColor = 'var(--border)';
+   b.style.background = 'var(--bg)';
+   b.style.color = 'var(--ink-soft)';
+ });
+ btn.style.borderColor = 'var(--accent-mid)';
+ btn.style.background = 'var(--accent-pale)';
+ btn.style.color = 'var(--accent)';
+ setTimeout(closeFollowup, 600);
+}
+ 
+function closeFollowup() {
+ document.getElementById('followup-modal').style.display = 'none';
+}
+ 
+function sendDiscoveryEmail() {
+ const name = (userData.first && userData.last) ? userData.first + ' ' + userData.last : '';
+ const org  = userData.org || '';
+ const score = document.getElementById('r-score')?.textContent || '';
+ const body = encodeURIComponent(
+   'Hi Mareva Etiko,\n\nI have just completed the ESG × AI Readiness Diagnostic' +
+   (score ? ' and scored ' + score + '/100' : '') +
+   (org ? ' (' + org + ')' : '') +
+   '.\n\nI would like to discuss the full audit and next steps.\n\nPlease get in touch.\n\nKind regards' +
+   (name ? ',\n' + name : '')
+ );
+ const subject = encodeURIComponent('ESG × AI Readiness Audit Enquiry');
+ window.location.href = 'mailto:hello@marevaetiko.com?subject=' + subject + '&body=' + body;
+}
+ 
+function sendEmail() {
+ window.location.href = 'mailto:hello@marevaetiko.com';
+}
+ 
+/* ═══════════════════════════════════════════════════
+  DOWNLOAD REPORT
+═══════════════════════════════════════════════════ */
+function downloadReport() {
+ const score = document.getElementById('r-score').textContent;
+ const name  = document.getElementById('r-name').textContent;
+ const org   = document.getElementById('r-org').textContent;
+ const level = document.getElementById('r-level-badge').textContent;
+ const desc  = document.getElementById('r-level-desc').textContent;
+ const date  = new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+ 
+ const dimRows = Array.from(document.querySelectorAll('.dim-narrative-card')).map(card => ({
+   name:    card.querySelector('.dim-narrative-name')?.textContent || '',
+   pct:     card.querySelector('.dim-narrative-pct')?.textContent || '',
+   insight: card.querySelector('.dim-narrative-insight')?.textContent || ''
+ }));
+ 
+ const steps = Array.from(document.querySelectorAll('.next-step-item')).slice(0,3).map(el => ({
+   label:  el.querySelector('.next-step-label')?.textContent || '',
+   action: el.querySelector('.next-step-action')?.textContent || '',
+   detail: el.querySelector('.next-step-detail')?.textContent || ''
+ }));
+ 
+ const levelColor = level.includes('High') ? '#126e75' : level.includes('Moderate') ? '#8a6e00' : level.includes('Limited') ? '#b05c00' : '#d63c2f';
+ const levelBg    = level.includes('High') ? '#e4f6f7' : level.includes('Moderate') ? '#fdf6dc' : level.includes('Limited') ? '#fef3e8' : '#fdf0ee';
+ 
+ const heatRows = QUESTIONS.map((q, i) => {
+   const s = answers[i] || 0;
+   const labels = ['','Critical','Weak','Developing','Strong','Excellent'];
+   const col = s >= 4 ? '#1a9fa8' : s === 3 ? '#d48a0c' : '#d63c2f';
+   const rowBg = i % 2 === 0 ? '#fff' : '#f5f7f8';
+   return `<tr style="background:${rowBg}">
+     <td style="padding:10px 14px;font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#126e75;background:#e4f6f7;border-radius:4px;white-space:nowrap">${q.dimension.split(' & ')[0]}</td>
+     <td style="padding:10px 14px;font-size:12px;color:#3a3d4a;line-height:1.4">${q.text.substring(0,85)}…</td>
+     <td style="padding:10px 14px;font-size:12px;font-weight:700;color:${col};text-align:center;white-space:nowrap">${labels[s]}</td>
+     <td style="padding:10px 14px;font-size:11px;color:#7a7f92;font-style:italic;line-height:1.45">${q.research}</td>
+   </tr>`;
+ }).join('');
+ 
+ // Weight rows with full reasoning
+ const weightData = [
+   { q:'Q4', dim:'Governance & Accountability', wt:12, tier:'Tier 1',
+     why:'Highest weight. Ownership is the single prerequisite that determines whether all other dimensions can function. Without a defined owner, data quality cannot be enforced, regulatory gaps cannot be closed, and AI governance cannot be implemented. Ranked above data quality (Q2) because ownership enables quality — not the reverse.',
+     cite:'KPMG Netherlands — Data Governance: The Key to Reliable ESG Data (Jan 2026)\nHarvard Law School Forum — Inside IFRS S1 and S2 (Aug 2023)' },
+   { q:'Q2', dim:'Data Infrastructure & Quality', wt:11, tier:'Tier 1',
+     why:'Inaccurate data invalidates every downstream output — disclosures, audits, AI models. Ranked second because data quality is the most operationally critical infrastructure factor, but below Q4 because ownership must be assigned before quality can be enforced.',
+     cite:'PwC — ESG Data Quality Under the Microscope (Feb 2026)\nIFRS S1 General Requirements (ISSB, Jun 2023)' },
+   { q:'Q6', dim:'Regulatory & Reporting Readiness', wt:11, tier:'Tier 2',
+     why:'Weighted equally to data quality because CSRD and ISSB create binding legal obligations with direct financial and reputational consequences. Ranked below Q4 because regulatory readiness requires governance first. Regulatory failure creates direct legal exposure, whereas infrastructure gaps create remediable operational risk.',
+     cite:'IFRS S1 and S2 (ISSB, Jun 2023)\nEFRAG — Simplified ESRS (Dec 2025)' },
+   { q:'Q1', dim:'Data Infrastructure & Quality', wt:10, tier:'Tier 2',
+     why:'Foundational but one step below data quality — a well-structured process can still produce unreliable data without quality controls. Weighted equally to Q3 and Q7/Q8 as a necessary but not sufficient condition for readiness.',
+     cite:'EDM Council — ESG & Sustainability Data Management Playbook (Apr 2024)\nKPMG — 2024 Sustainability Organisation Survey' },
+   { q:'Q3', dim:'Data Infrastructure & Quality', wt:10, tier:'Tier 2',
+     why:'Mandatory under CSRD ESRS E1 and a known audit risk area. Weighted equally to Q1 as a specific application of data infrastructure. Ranked below Q6 because it is a component of compliance, not the framework awareness that enables compliance.',
+     cite:'PwC — ESG Data Collection & Reporting (2024)\nEFRAG — ESRS Implementation Guidance IG 2: Value Chain (May 2024)' },
+   { q:'Q7', dim:'Strategy & Integration', wt:10, tier:'Tier 3',
+     why:'Weighted as a strategic enabler — meaningful but conditional on foundational readiness. Ranked below Tiers 1–2 because ESG cannot drive strategic value without reliable data and governance. Ranked equal to AI adoption readiness (Q8) because the two are interdependent.',
+     cite:'PwC — How Internal Controls Can Help Transform Sustainability Reporting (2025)\nThe Conference Board — ESG Performance Metrics in Executive Compensation 2024 Edition' },
+   { q:'Q8', dim:'Strategy & Integration', wt:10, tier:'Tier 3',
+     why:'Weighted equally to Q7 because strategy and AI adoption are interdependent. Ranked above AI literacy (Q9) and policy (Q10) because adoption readiness is the precondition for both using and governing AI tools — you cannot train or govern what you have not decided to use.',
+     cite:'PwC — ESG Data Collection & Reporting (2024)\nUNESCO / Thomson Reuters Foundation — Responsible AI in Practice (Apr 2026)' },
+   { q:'Q9', dim:'Technology & AI Literacy', wt:9, tier:'Tier 4',
+     why:'Weighted as an emerging risk — important and growing but not yet a primary compliance obligation. Ranked above AI policy (Q10) because literacy must precede governance: you cannot govern what your team does not understand.',
+     cite:'UN Global Compact — AI and the Sustainable Development Goals (2025)\nUNESCO / Thomson Reuters Foundation — Responsible AI in Practice (Apr 2026)' },
+   { q:'Q10', dim:'Technology & AI Literacy', wt:9, tier:'Tier 4',
+     why:'Weighted equally to AI literacy (Q9) because governance without literacy is hollow, and literacy without governance creates unchecked risk. Ranked below Tier 3 because AI policy is a downstream output of adoption readiness.',
+     cite:'UNESCO / Thomson Reuters Foundation — Responsible AI in Practice (Apr 2026)\nEU AI Act (Aug 2024)' },
+   { q:'Q5', dim:'Governance & Accountability', wt:8, tier:'Tier 5',
+     why:'Lowest weight because communication is entirely downstream — it depends on data quality, governance, and reporting systems already functioning. Strong communication cannot compensate for weak foundations. Still 8 points because credible disclosure is the ultimate purpose of ESG reporting.',
+     cite:'PwC — How Internal Controls Can Help Transform Sustainability Reporting (2025)\nHarvard Law School Forum — ESG Performance Metrics in Executive Pay (Jan 2024)' }
+ ];
+ 
+ const tierColors = { 'Tier 1':'#c0392b','Tier 2':'#8a6e00','Tier 3':'#1e6fb5','Tier 4':'#6b52a8','Tier 5':'#7a7f92' };
+ const tierBgs    = { 'Tier 1':'#ffe8e8','Tier 2':'#fff8e1','Tier 3':'#e8f4fd','Tier 4':'#f3eef8','Tier 5':'#f2f2f2' };
+ 
+ const weightRows = weightData.map((w, i) => {
+   const tc = tierColors[w.tier]; const tb = tierBgs[w.tier];
+   const bg = i % 2 === 0 ? '#fff' : '#f5f7f8';
+   const citeLines = w.cite.split('\n').map(l => `<div style="margin-bottom:3px">${l}</div>`).join('');
+   return `<tr style="background:${bg}">
+     <td style="padding:12px 14px;font-weight:700;color:#1a9fa8;font-size:14px;vertical-align:top">${w.q}</td>
+     <td style="padding:12px 14px;vertical-align:top">
+       <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#7a7f92;margin-bottom:3px">${w.dim}</div>
+     </td>
+     <td style="padding:12px 14px;text-align:center;vertical-align:top">
+       <div style="font-size:22px;font-weight:700;color:#1a9fa8;line-height:1">${w.wt}</div>
+     </td>
+     <td style="padding:12px 14px;vertical-align:top">
+       <span style="background:${tb};color:${tc};font-size:10px;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;padding:3px 8px;border-radius:4px">${w.tier}</span>
+     </td>
+     <td style="padding:12px 14px;font-size:12px;color:#3a3d4a;line-height:1.55;vertical-align:top">${w.why}</td>
+     <td style="padding:12px 14px;font-size:11px;color:#7a7f92;font-style:italic;line-height:1.5;vertical-align:top">${citeLines}</td>
+   </tr>`;
+ }).join('');
+ 
+ const html = `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ESG \u00d7 AI Readiness Full Report \u2014 ${name}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+ *{box-sizing:border-box;margin:0;padding:0}
+ body{font-family:'DM Sans',sans-serif;color:#0f1117;background:#fff;max-width:960px;margin:0 auto}
+ /* Cover */
+ .cover{background:linear-gradient(135deg,#126e75 0%,#1a9fa8 55%,#f0a630 100%);padding:56px 52px 48px;color:#fff}
+ .cover-brand{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;opacity:0.75;margin-bottom:14px}
+ .cover-title{font-family:'Instrument Serif',serif;font-size:42px;line-height:1.1;margin-bottom:8px}
+ .cover-sub{font-size:15px;opacity:0.8;margin-bottom:36px;line-height:1.5}
+ .cover-meta{display:flex;gap:36px;flex-wrap:wrap;margin-bottom:32px}
+ .cover-meta-item{font-size:12px;opacity:0.7}
+ .cover-meta-item strong{display:block;font-size:15px;opacity:1;color:#fff;margin-bottom:2px;font-weight:600}
+ .score-hero-dl{background:rgba(255,255,255,0.12);border-radius:14px;padding:22px 28px;display:flex;align-items:center;gap:28px}
+ .score-big{font-family:'Instrument Serif',serif;font-size:68px;color:#fff;line-height:1}
+ .score-denom-dl{font-size:14px;opacity:0.7;margin-top:4px}
+ .level-badge-dl{display:inline-block;padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;background:rgba(255,255,255,0.2);color:#fff;margin-bottom:8px}
+ .level-desc-dl{font-size:13px;opacity:0.85;line-height:1.55;max-width:440px}
+ /* Body */
+ .body-wrap{padding:44px 52px}
+ .section-hdr{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#7a7f92;margin:36px 0 14px;padding-top:28px;border-top:1px solid #e0e4e8}
+ .section-hdr:first-child{border-top:none;padding-top:0;margin-top:0}
+ .body-text{font-size:13px;color:#3a3d4a;line-height:1.65;margin-bottom:12px}
+ /* Dimension grid */
+ .dim-grid-dl{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:8px}
+ .dim-card-dl{border:1px solid #e0e4e8;border-radius:12px;padding:18px;background:#f9fafb}
+ .dim-card-top-dl{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+ .dim-name-dl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:#7a7f92}
+ .dim-pct-dl{font-family:'Instrument Serif',serif;font-size:26px;color:#1a9fa8}
+ .dim-insight-dl{font-size:12px;color:#3a3d4a;line-height:1.55}
+ /* Steps */
+ .step-row-dl{display:grid;grid-template-columns:32px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid #eee;align-items:start}
+ .step-num-dl{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0}
+ .step-label-dl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#7a7f92;margin-bottom:3px}
+ .step-action-dl{font-size:13px;font-weight:700;color:#0f1117;margin-bottom:4px}
+ .step-detail-dl{font-size:12px;color:#7a7f92;line-height:1.55}
+ /* Tables */
+ table{width:100%;border-collapse:collapse}
+ thead th{background:#1a9fa8;color:#fff;padding:10px 14px;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;text-align:left}
+ tbody td{border-bottom:1px solid #eee;vertical-align:top}
+ /* Method boxes */
+ .method-box-dl{background:#e4f6f7;border:1px solid #c2ecee;border-radius:12px;padding:18px 20px;margin-bottom:14px}
+ .method-box-dl h3{font-family:'Instrument Serif',serif;font-size:17px;color:#126e75;margin-bottom:8px}
+ .method-box-dl p{font-size:12px;color:#3a3d4a;line-height:1.6}
+ /* Scoring bands */
+ .band-row td{padding:12px 14px;font-size:12px;color:#3a3d4a;line-height:1.55;border-bottom:1px solid #eee}
+ /* Works cited */
+ .cite-row-dl{display:grid;grid-template-columns:190px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid #eee}
+ .cite-source-dl{font-size:11px;font-weight:700;color:#126e75;line-height:1.4}
+ .cite-detail-dl{font-size:12px;color:#3a3d4a;line-height:1.55}
+ /* CTA */
+ .cta-dl{background:linear-gradient(135deg,#f0a630,#e8703a,#d63c2f);padding:36px 52px;color:#fff;margin-top:0}
+ .cta-dl h3{font-family:'Instrument Serif',serif;font-size:26px;margin-bottom:8px;color:#fff}
+ .cta-dl p{font-size:13px;opacity:0.9;line-height:1.6;margin-bottom:6px}
+ .cta-dl a{color:#fff;font-weight:700}
+ .doc-footer-dl{padding:18px 52px;border-top:1px solid #e0e4e8;display:flex;justify-content:space-between;font-size:11px;color:#7a7f92}
+</style>
+</head>
+<body>
+ 
+<!-- COVER -->
+<div class="cover">
+ <div class="cover-brand">Mareva Etiko &nbsp;&middot;&nbsp; ESG &times; AI Readiness Diagnostic</div>
+ <div class="cover-title">Full Readiness Report</div>
+ <div class="cover-sub">Detailed findings, dimension insights, methodology, citations, and recommended actions</div>
+ <div class="cover-meta">
+   <div class="cover-meta-item"><strong>${name}</strong>Respondent</div>
+   <div class="cover-meta-item"><strong>${org}</strong>Organisation</div>
+   <div class="cover-meta-item"><strong>${date}</strong>Assessment date</div>
+   <div class="cover-meta-item"><strong>10 questions &nbsp;&middot;&nbsp; 5 dimensions</strong>Framework</div>
+ </div>
+ <div class="score-hero-dl">
+   <div>
+     <div class="score-big">${score}</div>
+     <div class="score-denom-dl">out of 100</div>
+   </div>
+   <div>
+     <div class="level-badge-dl">${level}</div>
+     <div class="level-desc-dl">${desc}</div>
+   </div>
+ </div>
+</div>
+ 
+<div class="body-wrap">
+ 
+<!-- ABOUT -->
+<div class="section-hdr">About This Report</div>
+<p class="body-text">This report was generated by the Mareva Etiko ESG &times; AI Readiness Diagnostic &mdash; a research-backed assessment framework that measures organisational readiness across five dimensions: Data Infrastructure &amp; Quality, Governance &amp; Accountability, Regulatory &amp; Reporting Readiness, Strategy &amp; Integration, and Technology &amp; AI Literacy.</p>
+<p class="body-text">Each of the ten questions maps to a documented ESG reporting challenge identified in peer-reviewed research and regulatory guidance published between 2023 and 2026. Questions are weighted on a scale of 8&ndash;12 points (total: 100), with a deliberately narrow spread to ensure no single area can disproportionately inflate or deflate the overall score.</p>
+<p class="body-text"><strong>Scoring formula:</strong> Points per question = (respondent score &divide; 5) &times; question weight. All ten scores are summed to produce the final score out of 100.</p>
+ 
+<!-- DIMENSIONS -->
+<div class="section-hdr">Readiness by Dimension</div>
+<div class="dim-grid-dl">
+ ${dimRows.map(d => `
+ <div class="dim-card-dl">
+   <div class="dim-card-top-dl">
+     <div class="dim-name-dl">${d.name}</div>
+     <div class="dim-pct-dl">${d.pct}</div>
+   </div>
+   <div class="dim-insight-dl">${d.insight}</div>
+ </div>`).join('')}
+</div>
+ 
+<!-- QUESTION BREAKDOWN -->
+<div class="section-hdr">Question-Level Breakdown with Research Citations</div>
+<table>
+ <thead><tr><th>Dimension</th><th>Question</th><th>Response</th><th>Research Basis</th></tr></thead>
+ <tbody>${heatRows}</tbody>
+</table>
+ 
+<!-- NEXT STEPS -->
+<div class="section-hdr">Top 3 Recommended Actions</div>
+${steps.map((s,i) => {
+ const cols = ['#d63c2f','#d4700a','#d48a0c'];
+ return `<div class="step-row-dl">
+   <div class="step-num-dl" style="background:${cols[i]}">${i+1}</div>
+   <div>
+     <div class="step-label-dl">${s.label}</div>
+     <div class="step-action-dl">${s.action}</div>
+     <div class="step-detail-dl">${s.detail}</div>
+   </div>
+ </div>`;
+}).join('')}
+ 
+<!-- SCORING INTERPRETATION -->
+<div class="section-hdr">Scoring Interpretation</div>
+<p class="body-text">Each score band reflects overall organisational readiness across all five dimensions. The framework uses a deliberately narrow weight range &mdash; 8 to 12 points per question &mdash; so that performance in any single area has a proportionate but not disproportionate effect on the final score. A low score on one question will bring the total down modestly; it will not collapse an otherwise strong result. The score reflects the organisation as a whole.</p>
+<table class="band-row">
+ <thead><tr><th style="width:80px">Score</th><th style="width:180px">Level</th><th>Meaning</th></tr></thead>
+ <tbody>
+   <tr style="background:#e4f6f7"><td style="padding:12px 14px;font-weight:700;color:#126e75;font-size:15px">85&ndash;100</td><td style="padding:12px 14px;font-weight:700;color:#126e75">High Readiness</td><td style="padding:12px 14px;font-size:12px;color:#3a3d4a">Strong ESG data, governance, reporting, and AI readiness foundation. The organisation has the systems, controls, ownership, and regulatory alignment needed to produce credible ESG disclosures and begin leveraging AI-enabled reporting tools.</td></tr>
+   <tr style="background:#fdf6dc"><td style="padding:12px 14px;font-weight:700;color:#8a6e00;font-size:15px">65&ndash;84</td><td style="padding:12px 14px;font-weight:700;color:#8a6e00">Moderate Readiness</td><td style="padding:12px 14px;font-size:12px;color:#3a3d4a">Some structure exists, but material gaps remain across one or more readiness dimensions. The organisation is on a credible path but requires targeted investment before pursuing external assurance or AI adoption.</td></tr>
+   <tr style="background:#fef3e8"><td style="padding:12px 14px;font-weight:700;color:#b05c00;font-size:15px">40&ndash;64</td><td style="padding:12px 14px;font-weight:700;color:#b05c00">Limited Readiness</td><td style="padding:12px 14px;font-size:12px;color:#3a3d4a">Significant weaknesses exist across multiple ESG readiness areas. Foundational elements are incomplete. A structured remediation plan is needed before meaningful ESG reporting or AI integration can be achieved.</td></tr>
+   <tr style="background:#fdf0ee"><td style="padding:12px 14px;font-weight:700;color:#d63c2f;font-size:15px">0&ndash;39</td><td style="padding:12px 14px;font-weight:700;color:#d63c2f">Critical Gaps</td><td style="padding:12px 14px;font-size:12px;color:#3a3d4a">Foundational ESG and AI readiness issues require immediate attention. Priority actions should focus on Tier 1 dimensions &mdash; governance ownership and data quality &mdash; before addressing any other areas.</td></tr>
+ </tbody>
+</table>
+ 
+<!-- METHODOLOGY -->
+<div class="section-hdr">Framework Methodology</div>
+<div class="method-box-dl">
+ <h3>Why this framework was built</h3>
+ <p>This diagnostic was not designed as a generic ESG quiz. It was designed as a readiness diagnostic. Each question tests a specific challenge that appears repeatedly in ESG reporting research: fragmented data, poor data quality, unclear ownership, weak supplier visibility, regulatory uncertainty, limited strategic integration, and immature AI governance. The weighting is intentional &mdash; governance ownership and data quality receive the highest weights because they determine whether the rest of the ESG system can be trusted.</p>
+</div>
+<div class="method-box-dl">
+ <h3>Weighting rationale</h3>
+ <p>The framework uses a narrow weight range of 8&ndash;12 points per question (spread of 4 points). This means no single question can dominate the score, and no single strong answer can mask systemic weakness elsewhere. A low score on one question will bring the total down modestly but will not collapse an otherwise strong result. Equally, a high score on one question cannot inflate a weak overall profile. The score reflects the organisation as a whole.</p>
+</div>
+ 
+<!-- FULL WEIGHT TABLE WITH REASONING -->
+<div class="section-hdr">Question Weights, Reasoning &amp; Citations</div>
+<p class="body-text" style="margin-bottom:16px">Questions are listed in order of weight, highest to lowest. Each row includes the reasoning for its position relative to other questions and the exact source citations that justify the weighting decision.</p>
+<table>
+ <thead><tr><th style="width:40px">Q</th><th style="width:140px">Dimension</th><th style="width:40px">Wt</th><th style="width:60px">Tier</th><th>Why This Weight</th><th style="width:200px">Citations</th></tr></thead>
+ <tbody>${weightRows}</tbody>
+</table>
+ 
+<!-- WORKS CITED -->
+<div class="section-hdr">Works Cited</div>
+${[
+ ['IFRS Foundation / ISSB','IFRS S1 General Requirements for Disclosure of Sustainability-related Financial Information and IFRS S2 Climate-related Disclosures. International Sustainability Standards Board, June 2023. Effective for annual periods beginning 1 January 2024. https://www.ifrs.org/issued-standards/ifrs-sustainability-disclosure-standards/'],
+ ['EFRAG','European Sustainability Reporting Standards (ESRS) and Corporate Sustainability Reporting Directive (CSRD). European Financial Reporting Advisory Group, 2023&ndash;2025. Simplified ESRS draft published December 2025. https://www.efrag.org'],
+ ['EFRAG','ESRS Implementation Guidance IG 2: Value Chain. European Financial Reporting Advisory Group, May 2024.'],
+ ['KPMG Netherlands','Data Governance: The Key to Reliable ESG Data. KPMG Netherlands, January 2026. https://kpmg.com/nl/en/home/insights/2026/01/data-governance-the-key-to-reliable-esg-data.html'],
+ ['KPMG','2024 Sustainability Organisation Survey. KPMG International, 2024.'],
+ ['PwC','ESG Data Quality Under the Microscope: What Auditors Want to See. PricewaterhouseCoopers, February 2026.'],
+ ['PwC','ESG Data Collection &amp; Reporting. PricewaterhouseCoopers, 2024.'],
+ ['PwC','How Internal Controls Can Help Transform Sustainability Reporting. PricewaterhouseCoopers, 2025.'],
+ ['EDM Council','Playbook for Effective ESG and Sustainability Data Management. EDM Council, April 2024. https://edmcouncil.org/wp-content/uploads/2024/04/EDM-Council_Playbook_ESG-and-Sustainability-Data-Mgmt_April-2024.pdf'],
+ ['Harvard Law School Forum','Inside IFRS S1 and S2. Harvard Law School Forum on Corporate Governance, August 2023. https://corpgov.law.harvard.edu'],
+ ['Harvard Law School Forum','ESG Performance Metrics in Executive Pay. Harvard Law School Forum on Corporate Governance, January 2024.'],
+ ['The Conference Board','ESG Performance Metrics in Executive Compensation: 2024 Edition. The Conference Board, 2024. https://www.conference-board.org/publications/ESG-performance-metrics-in-executive-compensation-strategies-2024-edition'],
+ ['UNESCO / Thomson Reuters Foundation','Responsible AI in Practice: 2025 Global Insights from the AI Company Data Initiative. UNESCO and Thomson Reuters Foundation, April 2026. Dataset: 2,972 companies across 11 sectors.'],
+ ['UN Global Compact','AI and the Sustainable Development Goals: Operationalizing Technology for a Sustainable Future. United Nations Global Compact, 2025.'],
+ ['EU AI Act','Regulation (EU) 2024/1689 laying down harmonised rules on artificial intelligence. European Union, August 2024. Entered into force 1 August 2024.']
+].map(([src,det]) => `<div class="cite-row-dl"><div class="cite-source-dl">${src}</div><div class="cite-detail-dl">${det}</div></div>`).join('')}
+ 
+</div><!-- end body-wrap -->
+ 
+<!-- CTA -->
+<div class="cta-dl">
+ <h3>Ready for the Full Audit?</h3>
+ <p>The Mareva Etiko ESG &times; AI Readiness Audit goes deeper &mdash; mapping your organisation&rsquo;s specific gaps, benchmarking against sector peers, and delivering a 90-day activation roadmap.</p>
+ <p>Email: <a href="mailto:hello@marevaetiko.com">hello@marevaetiko.com</a></p>
+</div>
+ 
+<div class="doc-footer-dl">
+ <span>&copy; 2026 Mareva Etiko &nbsp;&middot;&nbsp; ESG &times; AI Readiness Full Report &nbsp;&middot;&nbsp; ${date}</span>
+ <span>For informational purposes only. Full audit methodology available upon request.</span>
+</div>
+ 
+</body>
+</html>`;
+ 
+ const blob = new Blob([html], { type: 'text/html' });
+ const url  = URL.createObjectURL(blob);
+ const a    = document.createElement('a');
+ a.href     = url;
+ a.download = `Mareva-Etiko-Full-ESG-Report-${name.replace(/\s+/g,'-')}.html`;
+ document.body.appendChild(a);
+ a.click();
+ document.body.removeChild(a);
+ URL.revokeObjectURL(url);
+}
+/* ═══════════════════════════════════════════════════
+  PRINT / PDF
+═══════════════════════════════════════════════════ */
+// Print CSS is already defined; window.print() handles it.
+</script>
+ 
+<!-- ════════ FOLLOW-UP MODAL ════════ -->
+<div id="followup-modal" style="display:none;position:fixed;inset:0;background:rgba(15,17,23,0.5);z-index:200;padding:24px;" onclick="closeFollowup()">
+ <div style="display:flex;align-items:center;justify-content:center;min-height:100%;pointer-events:none">
+ <div style="background:#fff;border-radius:18px;padding:36px 32px;max-width:480px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.2);pointer-events:all" onclick="event.stopPropagation()">
+   <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">One more question</div>
+   <div id="followup-question" style="font-family:'Instrument Serif',serif;font-size:20px;color:var(--ink);margin-bottom:8px;line-height:1.35;">—</div>
+   <div id="followup-sub" style="font-size:13px;color:var(--ink-muted);margin-bottom:22px;line-height:1.5;">—</div>
+   <div id="followup-options" style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;"></div>
+   <button onclick="closeFollowup()" style="width:100%;padding:13px;border:1.5px solid var(--border);border-radius:50px;background:transparent;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--ink-muted);cursor:pointer;">Skip</button>
+ </div>
+ </div>
+</div>
+ 
+ 
+</body>
+</html>
