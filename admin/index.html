@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mareva Etiko Local Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--main:#004656;--blue:#0D7FBC;--soft:#E8F5F7;--paper:#F5F3ED;--ink:#102326;--muted:#7c8585;--border:#dedbd2;--card:#fffdfa;--warm:#C05F3D}
+*{box-sizing:border-box} body{margin:0;font-family:Montserrat,Avenir,sans-serif;background:var(--paper);color:var(--ink)}
+header{padding:34px clamp(22px,5vw,72px);background:var(--main);color:#fff;display:flex;justify-content:space-between;gap:20px;align-items:center}
+h1{font-family:"Playfair Display",serif;font-size:34px;margin:0 0 4px}.sub{opacity:.75;font-size:13px}
+main{padding:30px clamp(22px,5vw,72px)} .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+button,a{border:1px solid var(--border);background:#fff;color:var(--main);border-radius:999px;padding:10px 14px;font-weight:800;text-decoration:none;cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}.stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px}.stat strong{display:block;font-family:"Playfair Display",serif;font-size:34px;color:var(--blue);line-height:1}.stat span{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:800}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}th,td{padding:12px 14px;border-bottom:1px solid var(--border);font-size:13px;text-align:left}th{background:var(--soft);font-size:11px;text-transform:uppercase;letter-spacing:.08em}tr:last-child td{border-bottom:0}.empty{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:26px;color:var(--muted)}
+@media(max-width:800px){header{display:block}.grid{grid-template-columns:1fr 1fr}table{display:block;overflow:auto}}
+</style>
+</head>
+<body>
+<header>
+ <div>
+  <h1>Local Admin Dashboard</h1>
+  <div class="sub">Reads assessment history saved in this browser on localhost.</div>
+ </div>
+ <a href="../index.html">Back to diagnostic</a>
+</header>
+<main>
+ <div class="toolbar">
+  <button onclick="render()">Refresh</button>
+  <button onclick="downloadCsv()">Export CSV</button>
+  <button onclick="clearHistory()">Clear Local History</button>
+ </div>
+ <div class="grid">
+  <div class="stat"><strong id="count">0</strong><span>Assessments</span></div>
+  <div class="stat"><strong id="avg">0</strong><span>Average Score</span></div>
+  <div class="stat"><strong id="high">0</strong><span>Highest Score</span></div>
+  <div class="stat"><strong id="latest">-</strong><span>Latest</span></div>
+ </div>
+ <div id="table-wrap"></div>
+</main>
+<script>
+function readHistory(){try{return JSON.parse(localStorage.getItem('me_esg_history')||'[]')}catch(e){return[]}}
+function render(){
+ const rows=readHistory();
+ document.getElementById('count').textContent=rows.length;
+ document.getElementById('avg').textContent=rows.length?Math.round(rows.reduce((s,r)=>s+(r.score||0),0)/rows.length):0;
+ document.getElementById('high').textContent=rows.length?Math.max(...rows.map(r=>r.score||0)):0;
+ document.getElementById('latest').textContent=rows.length?new Date(rows[rows.length-1].date).toLocaleDateString():'-';
+ const wrap=document.getElementById('table-wrap');
+ if(!rows.length){wrap.innerHTML='<div class="empty">No local assessments saved yet. Complete the diagnostic once, then return here.</div>';return}
+ wrap.innerHTML='<table><thead><tr><th>Date</th><th>Org</th><th>Score</th><th>Data</th><th>Compliance</th><th>Environmental</th><th>Social</th><th>Governance</th></tr></thead><tbody>'+rows.slice().reverse().map(r=>'<tr><td>'+new Date(r.date).toLocaleString()+'</td><td>'+(r.org||'-')+'</td><td><strong>'+(r.score||0)+'</strong></td>'+((r.dims||[]).map(d=>'<td>'+d+'%</td>').join(''))+'</tr>').join('')+'</tbody></table>';
+}
+function downloadCsv(){
+ const rows=readHistory(); const header=['Date','Org','Score','Data','Compliance','Environmental','Social','Governance'];
+ const esc=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+ const csv=[header,...rows.map(r=>[r.date,r.org,r.score,...(r.dims||[])])].map(r=>r.map(esc).join(',')).join('\n');
+ const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download='mareva-etiko-local-assessments.csv'; a.click();
+}
+function clearHistory(){if(confirm('Clear locally saved assessment history in this browser?')){localStorage.removeItem('me_esg_history');render()}}
+render();
+</script>
+</body>
+</html>
